@@ -55,6 +55,15 @@ local plugins = {
             require('auto-save').setup(opts)
         end,
     },
+    {
+        "ellisonleao/glow.nvim",
+        opts = require("custom.configs.glow"),
+        ft = "markdown",
+        config = function(_, opts)
+            require('glow').setup(opts)
+        end,
+    },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
