@@ -1,4 +1,4 @@
-local overrides = require("custom.configs.overrides")
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -16,7 +16,7 @@ local plugins = {
   -- override plugin configs
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason
+    opts = overrides.mason,
   },
 
   {
@@ -26,7 +26,7 @@ local plugins = {
 
   {
     "nvim-tree/nvim-tree.lua",
-    opts = require('custom.configs.nvimtree')
+    opts = require "custom.configs.nvimtree",
   },
 
   -- Install a plugin
@@ -47,23 +47,27 @@ local plugins = {
     end,
   },
 
-    {
-        "pocco81/auto-save.nvim",
-        lazy = false,
-        opts = require('custom.configs.autosave'),
-        config = function(_, opts)
-            require('auto-save').setup(opts)
-        end,
-    },
-    {
-        "ellisonleao/glow.nvim",
-        opts = require("custom.configs.glow"),
-        ft = "markdown",
-        config = function(_, opts)
-            require('glow').setup(opts)
-        end,
-    },
-
+  {
+    "pocco81/auto-save.nvim",
+    lazy = false,
+    opts = require "custom.configs.autosave",
+    config = function(_, opts)
+      require("auto-save").setup(opts)
+    end,
+  },
+  {
+    "ellisonleao/glow.nvim",
+    opts = require "custom.configs.glow",
+    ft = "markdown",
+    config = function(_, opts)
+      require("glow").setup(opts)
+    end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = require "custom.configs.nvimlint",
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
