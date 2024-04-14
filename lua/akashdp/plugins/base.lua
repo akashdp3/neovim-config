@@ -10,5 +10,14 @@ return {
     },
     {
         "editorconfig/editorconfig-vim"
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require("lualine").setup({
+                options = { theme = "horizon"  }
+            })
+        end
     }
 }
