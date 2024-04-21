@@ -1,3 +1,5 @@
+local mappings = require("akashdp.config.mappings");
+
 return {
     {
         "nvim-lua/plenary.nvim"
@@ -19,5 +21,16 @@ return {
                 options = { theme = "horizon"  }
             })
         end
+    },
+
+    -- which-key config
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function ()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = {}
     }
 }
