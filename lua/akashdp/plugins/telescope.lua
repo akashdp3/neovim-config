@@ -29,7 +29,9 @@ return {
         {
             "<leader>fb",
             function()
-                require("telescope.builtin").buffers()
+                require("telescope.builtin").buffers({
+                    initial_mode = "normal"
+                })
             end,
             desc = "Search buffers"
         },
@@ -38,6 +40,16 @@ return {
             function()
                 require("telescope.builtin").help_tags()
             end
+        },
+        {
+            "<leader>fr",
+            function()
+                require("telescope.builtin").oldfiles({
+                    cwd = vim.uv.cwd(),
+                    initial_mdoe = "normal"
+                })
+            end
+
         },
         {
             "<leader>fd",
@@ -63,6 +75,19 @@ return {
                 })
             end,
             desc = "Open file browser with the path of the current buffer"
+        }
+    },
+    opts = {
+        defaults = {
+            sorting_strategy = "ascending",
+            layout_strategy = "horizontal",
+            layout_config = {
+                horizontal = {
+                    prompt_position = "top",
+                    height = 40,
+                    width = 150
+                }
+            }
         }
     }
 }
