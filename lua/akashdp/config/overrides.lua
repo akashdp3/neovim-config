@@ -9,7 +9,10 @@ M.treesitter = {
         -- web dev
         "javascript",
         "typescript",
-        "tsx"
+        "tsx",
+
+        -- others
+        "rust"
     },
     sync_install = false,
     highlight = { enable = true  },
@@ -28,7 +31,10 @@ M.language_servers = {
     "cssls",
     "html",
     "tailwindcss",
-    "tsserver"
+    "tsserver",
+
+    -- others
+    "rust_analyzer"
 }
 
 return M

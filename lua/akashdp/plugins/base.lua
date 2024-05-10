@@ -1,4 +1,4 @@
-local mappings = require("akashdp.config.mappings");
+-- local mappings = require("akashdp.config.mappings");
 
 return {
     {
