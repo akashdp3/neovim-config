@@ -2,8 +2,8 @@
 
 - [x] Colorscheme
 - [x] Treesitter
-- [ ] Telescope
-- [ ] Lualine
+- [x] Telescope
+- [x] Lualine
 - [ ] which-key
 - [ ] LSP
 - [ ] Formatter
