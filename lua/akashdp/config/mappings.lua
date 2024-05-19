@@ -105,6 +105,8 @@ M.general = {
             "Open file browser with the path of the current buffer"
         }
 
+        -- lsp
+
     }
 }
 

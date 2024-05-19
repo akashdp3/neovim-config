@@ -4,10 +4,10 @@
 - [x] Treesitter
 - [x] Telescope
 - [x] Lualine
-- [ ] which-key
-- [ ] LSP
-- [ ] Formatter
+- [x] LSP
+- [ ] Formatter & Linters
 - [ ] Autocompletion
 - [ ] Dashboard
 - [ ] git
 - [ ] Markdown handler
+- [ ] which-key
