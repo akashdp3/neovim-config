@@ -61,11 +61,9 @@ return {
       {
         "<leader>ff",
         function()
-          require("telescope.builtin").find_files({
-            cwd = require("lazy.core.config").options.root,
-          })
+          require("telescope.builtin").find_files({})
         end,
-        desc = "Find Plugin File",
+        desc = "Find Project File",
       },
       {
         "<leader>fd",
@@ -89,7 +87,7 @@ return {
         desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
       },
       {
-        "\\\\",
+        "<leader>fb",
         function()
           local builtin = require("telescope.builtin")
           builtin.buffers()
@@ -148,8 +146,8 @@ return {
             layout_config = { height = 40 },
           })
         end,
-        desc = "Open File Browser with the path of the current buffer",
       },
+      desc = "Open File Browser with the path of the current buffer",
     },
     config = function(_, opts)
       local telescope = require("telescope")
