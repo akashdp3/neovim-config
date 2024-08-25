@@ -1,9 +1,11 @@
-**This repo is supposed to used as config by NvChad users!**
+# Neovim Config
 
-- The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
-- So you just import its modules , like `require "nvchad.options" , require "nvchad.mappings"`
-- So you can delete the .git from this repo ( when you clone it locally ) or fork it :)
+Built on top of [NvChad](https://nvchad.com/).
 
-# Credits
+## Plugins Configured
 
-1) Lazyvim starter https://github.com/LazyVim/starter as nvchad's starter was inspired by Lazyvim's . It made a lot of things easier!
+- Dashboard with custom ascii art (using [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim))
+- Telescope with custom key bindings
+- Git (using [lazy-git](https://github.com/kdheepak/lazygit.nvim))
+- Note taking ([neorg](https://github.com/nvim-neorg/neorg))
+- Better UI for commands, cmdline and message (using [noice](https://github.com/folke/noice.nvim))
