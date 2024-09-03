@@ -31,7 +31,10 @@ M.language_servers = {
     "cssls",
     "html",
     "tailwindcss",
-    "tsserver"
+    "tsserver",
+
+    -- others
+    "rust-analyzer"
 }
 
 return M

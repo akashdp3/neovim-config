@@ -11,3 +11,6 @@ for vim_mode, keymaps in pairs(mappings.general) do
         keymap.set(vim_mode, key, value[1])
     end
 end
+
+-- Custom vim options
+require("akashdp.config.options")

@@ -87,7 +87,8 @@ return {
           height = 40,
           width = 150
         }
-      }
+      },
+      winblend = 10
     }
   }
 }
