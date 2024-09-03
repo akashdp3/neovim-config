@@ -19,7 +19,7 @@ return {
           ["core.dirman"] = {
             config = {
               workspaces = {
-                notes = "~/projects/notes"
+                notes = "~/OneDrive\\ -\\ 7-Eleven,\\ Inc/garden"
               }
             }
           },

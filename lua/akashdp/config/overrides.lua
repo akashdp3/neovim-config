@@ -30,7 +30,6 @@ M.language_servers = {
     -- web dev stuff
     "cssls",
     "html",
-    "tailwindcss",
     "tsserver",
 
     -- others
