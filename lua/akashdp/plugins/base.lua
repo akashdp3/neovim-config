@@ -1,3 +1,5 @@
+local lualine_config = require("akashdp.config.lualine")
+
 return {
     {
         "nvim-lua/plenary.nvim"
@@ -15,9 +17,7 @@ return {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
-            require("lualine").setup({
-                options = { theme = "horizon"  }
-            })
+            require("lualine").setup(lualine_config)
         end
     },
 

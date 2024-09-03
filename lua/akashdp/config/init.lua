@@ -14,3 +14,4 @@ end
 
 -- Custom vim options
 require("akashdp.config.options")
+require("akashdp.config.lualine")
