@@ -33,7 +33,7 @@ M.language_servers = {
     "tsserver",
 
     -- others
-    "rust-analyzer"
+    "rust_analyzer"
 }
 
 return M

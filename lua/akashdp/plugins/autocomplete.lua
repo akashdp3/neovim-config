@@ -33,7 +33,8 @@ return {
                     { name = 'buffer' },
                     { name = "path" },
                     { name = 'luasnip' },
-                    { name = 'nvim_lua' }
+                    { name = 'nvim_lua' },
+                    { name = 'neorg' },
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -93,7 +94,19 @@ return {
                     -- this first function is the "default handler"
                     -- it applies to every language server without a "custom handler"
                     function(server_name)
-                        require('lspconfig')[server_name].setup({})
+                        if server_name == 'lua_ls' then
+                            require('lspconfig').lua_ls.setup({
+                                settings = {
+                                    Lua = {
+                                        diagnostics = {
+                                            globals = {'vim'}
+                                        }
+                                    }
+                                }
+                            })
+                        else
+                            require('lspconfig')[server_name].setup({})
+                        end
                     end,
                 }
             })
