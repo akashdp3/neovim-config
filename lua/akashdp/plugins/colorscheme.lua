@@ -21,5 +21,8 @@ return  {
             },
         })
         vim.cmd([[colorscheme rose-pine]])
+        vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#6e6a86' })
+        vim.api.nvim_set_hl(0, 'LineNr', { fg='#eb6f92', bold=true })
+        vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#6e6a86' })
 	end
 }
