@@ -40,6 +40,9 @@ M.general = {
         ["sj"] = { "<C-w>j", "Move to bottom window" },
         ["sk"] = { "<C-w>k", "Move to top window" },
         ["sl"] = { "<C-w>l", "Move to right window "},
+
+        -- Neorg
+        ["<CR>"] = { "<Plug>(neorg.esupports.hop.hop-link)", "Open link in Neorg" }
     }
 }
 
