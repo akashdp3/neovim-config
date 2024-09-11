@@ -9,7 +9,8 @@ return {
     ft = "norg",
     build = ":Neorg sync-parsers",
     dependencies = {
-      "luarocks.nvim"
+      "luarocks.nvim",
+      { "nvim-neorg/neorg-telescope" }
     },
     config = function ()
       require("neorg").setup {
@@ -24,7 +25,13 @@ return {
             }
           },
           -- ["core.presenter"] = {},
-          -- ["core.integrations.telescope"] = {},
+          ["core.integrations.telescope"] = {
+            config = {
+                insert_file_link = {
+                    show_title_preview = true
+                            }
+            }
+          },
           -- ["core.norg.journal"] = {}
         }
       }
