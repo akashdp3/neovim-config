@@ -6,8 +6,8 @@ M.treesitter = {
         "lua",
         "vim",
 
-	-- notes
-	"norg",
+        -- notes
+        "norg",
 
         -- web dev
         "javascript",
@@ -25,14 +25,15 @@ M.language_servers = {
 
     -- common
     "jsonls",
-    "eslint",
 
     -- web dev stuff
     "cssls",
     "html",
     "tsserver",
+    "eslint_d",
+    "prettierd",
 
-    -- others
+    -- rust
     "rust_analyzer"
 }
 
