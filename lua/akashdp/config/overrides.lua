@@ -22,6 +22,7 @@ M.treesitter = {
 M.language_servers = {
     -- vim / lua
     "lua_ls",
+    "stylua",
 
     -- common
     "jsonls",
