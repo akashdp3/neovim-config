@@ -1,11 +1,11 @@
-return  {
-	"rose-pine/neovim",
-	name = "rose-pine",
-	lazy = false,
-	priority = 1000,
-	config = function()
+return {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = false,
+    priority = 1000,
+    config = function()
         require("rose-pine").setup({
-            disable_background = true,       -- Disables the background color
+            disable_background = true, -- Disables the background color
             disable_float_background = true,
             extend_background_behind_borders = true,
             styles = {
@@ -23,8 +23,8 @@ return  {
         vim.cmd([[colorscheme rose-pine]])
 
         -- Highlight current line
-        vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#6e6a86' })
-        vim.api.nvim_set_hl(0, 'LineNr', { fg='#eb6f92', bold=true })
-        vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#6e6a86' })
-	end
+        vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#6e6a86' })
+        vim.api.nvim_set_hl(0, 'LineNr', { fg = '#eb6f92', bold = true })
+        vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#6e6a86' })
+    end
 }
