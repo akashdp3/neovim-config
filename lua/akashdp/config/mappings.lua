@@ -39,10 +39,14 @@ M.general = {
         ["sh"] = { "<C-w>h", "Move to left window" },
         ["sj"] = { "<C-w>j", "Move to bottom window" },
         ["sk"] = { "<C-w>k", "Move to top window" },
-        ["sl"] = { "<C-w>l", "Move to right window "},
+        ["sl"] = { "<C-w>l", "Move to right window " },
 
         -- Neorg
-        ["<CR>"] = { "<Plug>(neorg.esupports.hop.hop-link)", "Open link in Neorg" }
+        ["<CR>"] = { "<Plug>(neorg.esupports.hop.hop-link)", "Open link in Neorg" },
+
+        -- yank to clipboard
+        ["<leader>yyc"] = { '"+yy', "Yank current line to clipboard", "Current line copied to clipboard" },
+        ["<leader>yc"] = { '"+y', "Yank selected text to clipboard", "Selected text copied to clipboard" }
     }
 }
 

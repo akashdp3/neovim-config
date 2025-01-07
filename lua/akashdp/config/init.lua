@@ -1,4 +1,4 @@
--- Config for vim Leader and localleader 
+-- Config for vim Leader and localleader
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

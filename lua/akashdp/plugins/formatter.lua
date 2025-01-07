@@ -7,7 +7,7 @@ return {
                 javascript = { "prettierd" },
                 typescript = { "prettierd" },
                 javascriptreact = { "prettierd" },
-                typescriptreact = { "prettierd" }
+                typescriptreact = { "prettierd" },
             },
             format_on_save = {
                 timeout_ms = 500,
