@@ -29,4 +29,4 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.updatetime = 50
 
-vim.api.nvim_set_hl(0, 'LineNr', { fg='yellow' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = 'yellow' })

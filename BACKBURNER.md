@@ -3,5 +3,5 @@
 ## Tasks
 
 - [x] Yank to clipboard (normal & visual mode)
-- [ ] Resource config without restarting vim.
+- [ ] Re-source config without restarting vim.
 - [ ] 

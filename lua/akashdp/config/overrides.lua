@@ -15,8 +15,8 @@ M.treesitter = {
         "tsx"
     },
     sync_install = false,
-    highlight = { enable = true  },
-    indent = { enable = true  }
+    highlight = { enable = true },
+    indent = { enable = true }
 }
 
 M.language_servers = {
