@@ -45,7 +45,9 @@ M.general = {
         ["<CR>"] = { "<Plug>(neorg.esupports.hop.hop-link)", "Open link in Neorg" },
 
         -- yank to clipboard
-        ["<leader>yyc"] = { '"+yy', "Yank current line to clipboard", "Current line copied to clipboard" },
+        ["<leader>yc"] = { '"+yy', "Yank current line to clipboard", "Current line copied to clipboard" },
+    },
+    v = {
         ["<leader>yc"] = { '"+y', "Yank selected text to clipboard", "Selected text copied to clipboard" }
     }
 }
