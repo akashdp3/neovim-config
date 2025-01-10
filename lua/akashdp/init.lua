@@ -1,2 +1,2 @@
-require("akashdp.config")
+require("akashdp.config").setup()
 require("akashdp.lazy")
