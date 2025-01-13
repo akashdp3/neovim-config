@@ -12,7 +12,9 @@ M.treesitter = {
         -- web dev
         "javascript",
         "typescript",
-        "tsx"
+        "tsx",
+        "go",
+        "rust"
     },
     sync_install = false,
     highlight = { enable = true },
