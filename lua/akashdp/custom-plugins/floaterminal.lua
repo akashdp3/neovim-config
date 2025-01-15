@@ -1,3 +1,4 @@
+local M = {}
 local state = {
     floating = {
         buf = -1,
@@ -50,6 +51,11 @@ local toggle_terminal = function()
     end
 end
 
--- Example usage:
--- Create a floating window with default dimensions
-vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
+
+function M.setup()
+    -- Example usage:
+    -- Create a floating window with default dimensions
+    vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
+end
+
+return M
