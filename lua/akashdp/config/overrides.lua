@@ -36,7 +36,10 @@ M.language_servers = {
     "prettierd",
 
     -- rust
-    "rust_analyzer"
+    "rust_analyzer",
+
+    -- go
+    "gopls"
 }
 
 return M
