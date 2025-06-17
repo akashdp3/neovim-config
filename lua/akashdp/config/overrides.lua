@@ -31,7 +31,7 @@ M.language_servers = {
     -- web dev stuff
     "cssls",
     "html",
-    "tsserver",
+    "ts_ls",
     "eslint_d",
     "prettierd",
 
@@ -41,5 +41,7 @@ M.language_servers = {
     -- go
     "gopls"
 }
+
+M.mason = {}
 
 return M
