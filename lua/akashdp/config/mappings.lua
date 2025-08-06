@@ -22,8 +22,6 @@ local normal_mode_keymaps = {
 
     ["<C-m>"] = { "<C-i>", "Jumplist" },
 
-    ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
-    ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
 
     ["ss"] = { ":split<Return>", "Horizontal Split" },
     ["sv"] = { ":vsplit<Return>", "Vertical Split" },
@@ -41,7 +39,10 @@ local normal_mode_keymaps = {
 local visual_mode_keymaps = {
     ["<leader>yc"] = { '"+y', "Yank selected text to clipboard", "Selected text copied to clipboard" },
 
-    ["<leader>x"] = { ":lua<CR>", "Executes the visually selected text as Lua code" }
+    ["<leader>x"] = { ":lua<CR>", "Executes the visually selected text as Lua code" },
+    
+    ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
+    ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
 }
 
 local terminal_mode_keymaps = {

@@ -32,14 +32,28 @@ M.language_servers = {
     "cssls",
     "html",
     "ts_ls",
-    "eslint_d",
-    "prettierd",
 
     -- rust
     "rust_analyzer",
 
     -- go
     "gopls"
+}
+
+M.formatters_linters = {
+    -- web dev
+    "eslint_d",
+    "prettierd",
+    
+    -- lua
+    "stylua",
+    
+    -- go
+    "gofumpt",
+    "goimports",
+    
+    -- rust
+    "rustfmt",
 }
 
 M.mason = {}

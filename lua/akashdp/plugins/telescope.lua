@@ -88,7 +88,7 @@ return {
                     width = 150
                 }
             },
-            winblend = 10
+            winblend = 0
         }
     }
 }
