@@ -75,6 +75,28 @@ return {
                 })
             end,
             desc = "Open file browser with the path of the current buffer"
+        },
+        -- Tmux integration keybindings
+        {
+            "<leader>tp",
+            function()
+                require("akashdp.telescope.tmux").panes()
+            end,
+            desc = "Switch tmux panes"
+        },
+        {
+            "<leader>ts",
+            function()
+                require("akashdp.telescope.tmux").sessions()
+            end,
+            desc = "Switch tmux sessions"
+        },
+        {
+            "<leader>tw",
+            function()
+                require("akashdp.telescope.tmux").windows()
+            end,
+            desc = "Switch tmux windows"
         }
     },
     opts = {
