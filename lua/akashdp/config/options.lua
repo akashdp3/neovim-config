@@ -29,4 +29,18 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.updatetime = 50
 
+-- Font configuration (for GUI clients like neovide, nvim-qt, etc.)
+if vim.g.neovide then
+    vim.o.guifont = "JetBrains Mono:h14"
+    vim.g.neovide_scale_factor = 1.0
+    vim.g.neovide_transparency = 0.9
+elseif vim.g.fvim_loaded then
+    vim.o.guifont = "JetBrains Mono:h14"
+elseif vim.g.nvui then
+    vim.o.guifont = "JetBrains Mono:h14"
+else
+    -- For other GUI clients
+    vim.o.guifont = "JetBrains Mono:h14"
+end
+
 vim.api.nvim_set_hl(0, 'LineNr', { fg = 'yellow' })
