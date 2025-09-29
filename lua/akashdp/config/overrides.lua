@@ -9,6 +9,9 @@ M.treesitter = {
         -- notes
         "norg",
 
+        -- config files
+        "yaml",
+
         -- web dev
         "javascript",
         "typescript",
