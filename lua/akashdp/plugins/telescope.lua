@@ -111,6 +111,44 @@ return {
                 }
             },
             winblend = 0
+        },
+        extensions = {
+            file_browser = {
+                hijack_netrw = true,
+                mappings = {
+                    ["i"] = {
+                        -- Keep default mappings but don't select after create
+                    },
+                    ["n"] = {
+                        -- Keep default mappings but don't select after create
+                    }
+                }
+            }
         }
-    }
+    },
+    config = function(_, opts)
+        local telescope = require("telescope")
+        telescope.setup(opts)
+        telescope.load_extension("fzf")
+        telescope.load_extension("file_browser")
+
+        -- Override file browser create action to not select the file
+        local fb_actions = require("telescope._extensions.file_browser.actions")
+        local original_create = fb_actions.create
+
+        fb_actions.create = function(prompt_bufnr)
+            local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+            original_create(prompt_bufnr)
+
+            -- Return focus to telescope after file creation
+            vim.schedule(function()
+                if current_picker and vim.api.nvim_buf_is_valid(prompt_bufnr) then
+                    local prompt_win = vim.fn.bufwinid(prompt_bufnr)
+                    if prompt_win ~= -1 then
+                        vim.api.nvim_set_current_win(prompt_win)
+                    end
+                end
+            end)
+        end
+    end
 }
