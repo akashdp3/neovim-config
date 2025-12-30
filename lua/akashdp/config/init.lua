@@ -9,6 +9,7 @@ require("akashdp.config.options")
 require("akashdp.config.lualine")
 local autocmds = require("akashdp.config.autocmd")
 local mappings = require("akashdp.config.mappings")
+local diagnostics = require("akashdp.config.diagnostics")
 
 -- Setup keymaps
 function M.setup_mappings(key_mappings)
@@ -30,6 +31,9 @@ end
 function M.setup()
     M.setup_mappings(mappings)
     M.setup_autocmds()
+    diagnostics.setup()
+    diagnostics.setup_keymaps()
+    diagnostics.setup_hover() -- Auto-show diagnostics on hover
 end
 
 return M

@@ -33,4 +33,16 @@ function M.setup_catppuccin_cursor()
 	})
 end
 
+function M.setup_norg_wrapping()
+	create_autocmd("FileType", {
+		desc = "setup text wrapping for norg files",
+		pattern = "norg",
+		callback = function()
+			vim.opt_local.textwidth = 80
+			vim.opt_local.wrap = true
+			vim.opt_local.linebreak = true
+		end,
+	})
+end
+
 return M

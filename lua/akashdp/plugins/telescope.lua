@@ -97,6 +97,35 @@ return {
                 require("akashdp.telescope.tmux").windows()
             end,
             desc = "Switch tmux windows"
+        },
+        -- Quickfix and Diagnostics
+        {
+            "<leader>xq",
+            function()
+                require("telescope.builtin").quickfix()
+            end,
+            desc = "Telescope quickfix list"
+        },
+        {
+            "<leader>xl",
+            function()
+                require("telescope.builtin").loclist()
+            end,
+            desc = "Telescope location list"
+        },
+        {
+            "<leader>xx",
+            function()
+                require("telescope.builtin").diagnostics({ bufnr = 0 })
+            end,
+            desc = "Telescope buffer diagnostics"
+        },
+        {
+            "<leader>xw",
+            function()
+                require("telescope.builtin").diagnostics()
+            end,
+            desc = "Telescope workspace diagnostics"
         }
     },
     opts = {
