@@ -16,6 +16,7 @@ M.treesitter = {
         "javascript",
         "typescript",
         "tsx",
+        "astro",
         "go",
         "rust"
     },
@@ -35,6 +36,7 @@ M.language_servers = {
     "cssls",
     "html",
     "ts_ls",
+    "astro",
 
     -- rust
     "rust_analyzer",
