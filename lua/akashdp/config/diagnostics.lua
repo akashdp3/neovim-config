@@ -4,42 +4,61 @@ local M = {}
 M.setup = function()
 	-- Configure how diagnostics are displayed
 	vim.diagnostic.config({
-		-- Show diagnostic messages as virtual text at the end of the line
-		virtual_text = {
-			prefix = "●", -- Could be '■', '▎', 'x', '●', etc.
-			spacing = 4,
-			source = "if_many", -- Show source if multiple sources
-		},
+		-- Virtual text disabled - using tiny-inline-diagnostic instead for better visuals
+		virtual_text = false,
 		-- Show diagnostic signs in the sign column (gutter)
-		signs = true,
+		signs = {
+			text = {
+				[vim.diagnostic.severity.ERROR] = " ",
+				[vim.diagnostic.severity.WARN] = " ",
+				[vim.diagnostic.severity.HINT] = " ",
+				[vim.diagnostic.severity.INFO] = " ",
+			},
+			linehl = {
+				[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
+				[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
+			},
+			numhl = {
+				[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+				[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+			},
+		},
 		-- Update diagnostics in insert mode (can be false for better performance)
 		update_in_insert = false,
 		-- Underline text with diagnostics
-		underline = true,
+		underline = {
+			severity = { min = vim.diagnostic.severity.HINT },
+		},
 		-- Show diagnostic messages sorted by severity
 		severity_sort = true,
 		-- Configure floating window appearance
 		float = {
-			focusable = false,
+			focusable = true,
 			style = "minimal",
 			border = "rounded",
-			source = "always", -- Show source in floating window
-			header = "",
-			prefix = "",
+			source = true,
+			header = " Diagnostics",
+			prefix = function(diagnostic)
+				local icons = {
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = " ",
+					[vim.diagnostic.severity.INFO] = " ",
+				}
+				return icons[diagnostic.severity] or "● ", "DiagnosticSign" .. ({ "Error", "Warn", "Hint", "Info" })[diagnostic.severity]
+			end,
+			suffix = function(diagnostic)
+				return diagnostic.code and string.format(" [%s]", diagnostic.code) or "", "Comment"
+			end,
+			format = function(diagnostic)
+				return diagnostic.message
+			end,
 		},
 	})
 
-	-- Define diagnostic signs (icons in the gutter)
-	local signs = {
-		{ name = "DiagnosticSignError", text = "" },
-		{ name = "DiagnosticSignWarn", text = "" },
-		{ name = "DiagnosticSignHint", text = "" },
-		{ name = "DiagnosticSignInfo", text = "" },
-	}
-
-	for _, sign in ipairs(signs) do
-		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-	end
+	-- Subtle line highlight for errors/warnings
+	vim.api.nvim_set_hl(0, "DiagnosticLineError", { bg = "#2d1f1f" })
+	vim.api.nvim_set_hl(0, "DiagnosticLineWarn", { bg = "#2d2a1f" })
 end
 
 -- Keybindings for diagnostics

@@ -34,6 +34,25 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.updatetime = 50
 
+-- Cursorline for better visibility
+vim.opt.cursorline = true
+
+-- Better split behavior
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- Show matching brackets
+vim.opt.showmatch = true
+
+-- Faster macros
+vim.opt.lazyredraw = false
+
+-- Better completion experience
+vim.opt.completeopt = "menu,menuone,noselect"
+
+-- Confirm before closing unsaved buffers
+vim.opt.confirm = true
+
 -- Font configuration (for GUI clients like neovide, nvim-qt, etc.)
 if vim.g.neovide then
 	vim.o.guifont = "JetBrains Mono:h14"
