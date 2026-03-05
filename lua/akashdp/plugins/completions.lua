@@ -2,21 +2,6 @@ local overrides = require("akashdp.config.overrides")
 
 return {
     {
-        "github/copilot.vim",
-        enabled = false
-    },
-    {
-        "CopilotC-Nvim/CopilotChat.nvim",
-        dependencies = {
-            { "github/copilot.vim" },              -- or zbirenbaum/copilot.lua
-            { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-        },
-        build = "make tiktoken",                   -- Only on MacOS or Linux
-        opts = {
-            -- See Configuration section for options
-        },
-    },
-    {
         "williamboman/mason.nvim",
         lazy = false,
         config = true,
@@ -65,7 +50,7 @@ return {
                 }),
                 snippet = {
                     expand = function(args)
-                        vim.snippet.expand(args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
                 -- Bordered completion window

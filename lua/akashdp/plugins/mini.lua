@@ -33,6 +33,13 @@ return {
 			}
 		end,
 	},
+	-- mini.pairs for auto-closing brackets
+	{
+		"echasnovski/mini.pairs",
+		version = "*",
+		event = "InsertEnter",
+		opts = {},
+	},
 	-- mini.surround for surround operations (bonus)
 	{
 		"echasnovski/mini.surround",

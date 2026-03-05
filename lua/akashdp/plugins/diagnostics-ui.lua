@@ -42,22 +42,4 @@ return {
 			})
 		end,
 	},
-
-	-- Lsp lines - show diagnostics as virtual lines (alternative view)
-	{
-		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		event = "LspAttach",
-		enabled = false, -- Disabled by default, enable if you prefer this style
-		config = function()
-			require("lsp_lines").setup()
-			-- Toggle between virtual_text and lsp_lines
-			vim.keymap.set("n", "<leader>xl", function()
-				local new_value = not vim.diagnostic.config().virtual_lines
-				vim.diagnostic.config({
-					virtual_lines = new_value,
-					virtual_text = not new_value,
-				})
-			end, { desc = "Toggle diagnostic lines" })
-		end,
-	},
 }
