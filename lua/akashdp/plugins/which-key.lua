@@ -8,12 +8,12 @@ return {
 		end,
 		opts = {
 			preset = "modern",
-			delay = 200, -- Show popup faster
+			delay = 200,
 			icons = {
 				breadcrumb = "»",
 				separator = "→",
 				group = "+",
-				mappings = true, -- Enable mini.icons integration if available
+				mappings = true,
 				keys = {
 					Up = " ",
 					Down = " ",
@@ -56,23 +56,20 @@ return {
 				spacing = 3,
 			},
 			spec = {
-				-- Top-level groups with icons
-				{ "<leader>f", group = "󰈞 Find/Files", icon = "󰈞" },
-				{ "<leader>e", group = "󰙅 Explorer", icon = "󰙅" },
-				{ "<leader>g", group = " Git", icon = "" },
-				{ "<leader>l", group = " LSP", icon = "" },
-				{ "<leader>t", group = " Terminal/Tmux", icon = "" },
-				{ "<leader>w", group = "󰖯 Window", icon = "󰖯" },
-				{ "<leader>b", group = "󰓩 Buffer", icon = "󰓩" },
-				{ "<leader>y", group = " Yank/Copy", icon = "" },
-				{ "<leader>c", group = " Code/Claude", icon = "" },
-				{ "<leader>d", group = " Debug", icon = "" },
-				{ "<leader>r", group = " Replace", icon = "" },
-				{ "<leader>s", group = "󰛔 Search/Noice", icon = "󰛔" },
-				{ "<leader>x", group = "󱍼 Diagnostics", icon = "󱍼" },
-				{ "<leader>h", group = "󱡀 Harpoon", icon = "󱡀" },
-				{ "<leader>a", group = "󰚩 AI", icon = "󰚩" },
-				{ "<leader>i", group = " Info/Inspect", icon = "" },
+				-- Top-level groups
+				{ "<leader>f", group = "Find/Files", icon = "󰈞" },
+				{ "<leader>e", group = "Explorer", icon = "󰙅" },
+				{ "<leader>t", group = "Terminal/Tmux", icon = "" },
+				{ "<leader>w", group = "Window", icon = "󰖯" },
+				{ "<leader>b", group = "Buffer", icon = "󰓩" },
+				{ "<leader>y", group = "Yank/Copy", icon = "" },
+				{ "<leader>c", group = "Code", icon = "" },
+				{ "<leader>s", group = "Search/Noice", icon = "󰛔" },
+				{ "<leader>x", group = "Diagnostics", icon = "󱍼" },
+				{ "<leader>h", group = "Harpoon", icon = "󱡀" },
+				{ "<leader>a", group = "AI/Claude", icon = "󰚩" },
+				{ "<leader>i", group = "Info/Inspect", icon = "" },
+				{ "<leader>l", group = "Lazy", icon = "󰒲" },
 
 				-- Find/Files
 				{ "<leader>ff", desc = "Find files", icon = "󰈞" },
@@ -82,6 +79,9 @@ return {
 				{ "<leader>fr", desc = "Recent files", icon = "󰋚" },
 				{ "<leader>fd", desc = "File browser", icon = "󰙅" },
 				{ "<leader>fs", desc = "Save file", icon = "󰆓" },
+
+				-- Explorer
+				{ "<leader>ef", desc = "Open Netrw", icon = "󰙅" },
 
 				-- Terminal/Tmux
 				{ "<leader>tp", desc = "Switch tmux panes", icon = "󰓫" },
@@ -102,21 +102,33 @@ return {
 				{ "<leader>bl", desc = "Close buffers right", icon = "󰁔" },
 				{ "<leader>bh", desc = "Close buffers left", icon = "󰁍" },
 
-				-- Code/Claude
-				{ "<leader>cc", desc = "Open Claude split", icon = "󰚩" },
-				{ "<leader>ct", desc = "Toggle Claude pane", icon = "󰘖" },
-				{ "<leader>cn", desc = "New Claude session", icon = "󰝒" },
+				-- Code (LSP + Trouble)
+				{ "<leader>ca", desc = "Code action", icon = "󰌵" },
+				{ "<leader>cr", desc = "Rename symbol", icon = "󰏫" },
+				{ "<leader>cf", desc = "Format code", icon = "󰉢" },
 				{ "<leader>cs", desc = "Symbols (Trouble)", icon = "󰅪" },
-				{ "<leader>cS", desc = "LSP refs/defs", icon = "󰁨" },
+				{ "<leader>cS", desc = "LSP refs/defs (Trouble)", icon = "󰁨" },
+
+				-- AI/Claude
+				{ "<leader>ac", desc = "Toggle Claude", icon = "󰚩" },
+				{ "<leader>af", desc = "Focus Claude", icon = "󰆤" },
+				{ "<leader>ar", desc = "Resume Claude", icon = "󰑓" },
+				{ "<leader>aC", desc = "Continue Claude", icon = "󰒭" },
+				{ "<leader>am", desc = "Select model", icon = "󰛓" },
+				{ "<leader>ab", desc = "Add current buffer", icon = "󰈙" },
+				{ "<leader>as", desc = "Send to Claude", icon = "󰑩", mode = "v" },
+				{ "<leader>aa", desc = "Accept diff", icon = "󰄬" },
+				{ "<leader>ad", desc = "Deny diff", icon = "󰅖" },
 
 				-- Diagnostics/Quickfix
 				{ "<leader>xd", desc = "Show diagnostic float", icon = "󰙨" },
 				{ "<leader>xx", desc = "Diagnostics (Trouble)", icon = "󱍼" },
-				{ "<leader>xX", desc = "Buffer diagnostics", icon = "󰈙" },
-				{ "<leader>xL", desc = "Location list", icon = "󰆤" },
-				{ "<leader>xQ", desc = "Quickfix list", icon = "󰁨" },
-				{ "<leader>xq", desc = "Telescope quickfix", icon = "󰈞" },
-				{ "<leader>xl", desc = "Telescope loclist", icon = "󰈞" },
+				{ "<leader>xX", desc = "Buffer diagnostics (Trouble)", icon = "󰈙" },
+				{ "<leader>xb", desc = "Buffer diagnostics (Telescope)", icon = "󰈞" },
+				{ "<leader>xL", desc = "Location list (Trouble)", icon = "󰆤" },
+				{ "<leader>xQ", desc = "Quickfix list (Trouble)", icon = "󰁨" },
+				{ "<leader>xq", desc = "Quickfix (Telescope)", icon = "󰈞" },
+				{ "<leader>xl", desc = "Location list (Telescope)", icon = "󰈞" },
 				{ "<leader>xw", desc = "Workspace diagnostics", icon = "󰒋" },
 				{ "<leader>xt", desc = "TODOs (Trouble)", icon = "󰄬" },
 
@@ -131,7 +143,7 @@ return {
 				{ "<leader>hp", desc = "Previous file", icon = "󰒮" },
 
 				-- Search/Noice
-				{ "<leader>sn", group = "󰎟 Noice", icon = "󰎟" },
+				{ "<leader>sn", group = "Noice", icon = "󰎟" },
 				{ "<leader>snl", desc = "Last message", icon = "󰋚" },
 				{ "<leader>snh", desc = "History", icon = "󰋖" },
 				{ "<leader>sna", desc = "All messages", icon = "󰍡" },
@@ -145,6 +157,7 @@ return {
 				{ "<leader>q", desc = "Quit", icon = "󰈆" },
 				{ "<leader>Q", desc = "Force quit all", icon = "󰗼" },
 				{ "<leader>ih", desc = "Toggle inlay hints", icon = "󰌵" },
+				{ "<leader>lg", desc = "LazyGit", icon = "" },
 
 				-- Source/Execute
 				{ "<leader><leader>x", desc = "Source current file", icon = "󰑓" },
@@ -155,19 +168,19 @@ return {
 				{ "<leader>yc", desc = "Yank selection to clipboard", icon = "", mode = "v" },
 
 				-- Goto group
-				{ "g", group = " Goto", icon = "" },
-				{ "gd", desc = "Definition", icon = "󰈮" },
-				{ "gD", desc = "Peek definitions", icon = "󰍉" },
-				{ "gi", desc = "Implementation", icon = "󰡱" },
-				{ "gr", desc = "References", icon = "󰈇" },
-				{ "gR", desc = "Peek references", icon = "󰍉" },
-				{ "gY", desc = "Peek type defs", icon = "󰍉" },
-				{ "gM", desc = "Peek implementations", icon = "󰍉" },
-				{ "go", desc = "Type definition", icon = "󰊄" },
-				{ "gs", desc = "Signature help", icon = "󰏪" },
+				{ "g", group = "Goto", icon = "" },
+				{ "gd", desc = "Go to definition", icon = "󰈮" },
+				{ "gD", desc = "Glance definitions", icon = "󰍉" },
+				{ "gi", desc = "Go to implementation", icon = "󰡱" },
+				{ "gr", desc = "Go to references", icon = "󰈇" },
+				{ "gR", desc = "Glance references", icon = "󰍉" },
+				{ "gY", desc = "Glance type defs", icon = "󰍉" },
+				{ "gM", desc = "Glance implementations", icon = "󰍉" },
+				{ "go", desc = "Go to type definition", icon = "󰊄" },
+				{ "gK", desc = "Signature help", icon = "󰏪" },
 
-				-- Surround (mini.surround)
-				{ "gs", group = "󰅪 Surround", icon = "󰅪" },
+				-- Surround (mini.surround) - gs prefix
+				{ "gs", group = "Surround", icon = "󰅪" },
 				{ "gsa", desc = "Add surrounding", icon = "󰐕" },
 				{ "gsd", desc = "Delete surrounding", icon = "󰅖" },
 				{ "gsr", desc = "Replace surrounding", icon = "󰏫" },
@@ -181,7 +194,7 @@ return {
 				{ "S", desc = "Flash treesitter", icon = "󰐅" },
 
 				-- Folds
-				{ "z", group = "󰘖 Fold", icon = "󰘖" },
+				{ "z", group = "Fold", icon = "󰘖" },
 				{ "za", desc = "Toggle fold", icon = "󰘖" },
 				{ "zA", desc = "Toggle all folds", icon = "󰘖" },
 				{ "zc", desc = "Close fold", icon = "󰁂" },
@@ -192,19 +205,17 @@ return {
 				{ "zR", desc = "Open all", icon = "󰁃" },
 
 				-- Next/Prev navigation
-				{ "]", group = "󰒭 Next", icon = "󰒭" },
+				{ "]", group = "Next", icon = "󰒭" },
 				{ "]d", desc = "Next diagnostic", icon = "󱍼" },
 				{ "]e", desc = "Next error", icon = "" },
 				{ "]w", desc = "Next warning", icon = "" },
 				{ "]h", desc = "Next hunk", icon = "" },
-				{ "]b", desc = "Next buffer", icon = "󰓩" },
 
-				{ "[", group = "󰒮 Previous", icon = "󰒮" },
+				{ "[", group = "Previous", icon = "󰒮" },
 				{ "[d", desc = "Previous diagnostic", icon = "󱍼" },
 				{ "[e", desc = "Previous error", icon = "" },
 				{ "[w", desc = "Previous warning", icon = "" },
 				{ "[h", desc = "Previous hunk", icon = "" },
-				{ "[b", desc = "Previous buffer", icon = "󰓩" },
 
 				-- Buffer navigation (number keys)
 				{ "<leader>1", desc = "Buffer 1", icon = "󰎤" },
@@ -213,13 +224,13 @@ return {
 				{ "<leader>4", desc = "Buffer 4", icon = "󰎭" },
 				{ "<leader>5", desc = "Buffer 5", icon = "󰎱" },
 
-				-- LSP specific (shown in LspAttach)
+				-- LSP (shown after LspAttach)
 				{ "K", desc = "Hover documentation", icon = "󰋖" },
 				{ "<F2>", desc = "Rename symbol", icon = "󰏫" },
 				{ "<F3>", desc = "Format code", icon = "󰉢" },
 				{ "<F4>", desc = "Code action", icon = "󰌵" },
 
-				-- Window splits
+				-- Window splits/navigation
 				{ "ss", desc = "Horizontal split", icon = "󰇘" },
 				{ "sv", desc = "Vertical split", icon = "󰇙" },
 				{ "sh", desc = "Go left window", icon = "" },
