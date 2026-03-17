@@ -45,4 +45,15 @@ function M.setup_norg_wrapping()
 	})
 end
 
+function M.setup_markdown_wrapping()
+	create_autocmd("FileType", {
+		desc = "setup text wrapping for markdown files",
+		pattern = "markdown",
+		callback = function()
+			vim.opt_local.wrap = true
+			vim.opt_local.linebreak = true
+		end,
+	})
+end
+
 return M
