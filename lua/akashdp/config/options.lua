@@ -9,11 +9,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
-vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
@@ -44,8 +41,11 @@ vim.opt.splitright = true
 -- Show matching brackets
 vim.opt.showmatch = true
 
--- Faster macros
-vim.opt.lazyredraw = false
+-- System clipboard
+vim.opt.clipboard = "unnamedplus"
+
+-- Better gf on paths like @scope/pkg and ~/foo
+vim.opt.isfname:append("@-@")
 
 -- Better completion experience
 vim.opt.completeopt = "menuone,noinsert,noselect,popup"
@@ -53,18 +53,9 @@ vim.opt.completeopt = "menuone,noinsert,noselect,popup"
 -- Confirm before closing unsaved buffers
 vim.opt.confirm = true
 
--- Font configuration (for GUI clients like neovide, nvim-qt, etc.)
+-- Font configuration (GUI clients: neovide, nvim-qt, etc.)
+vim.o.guifont = "JetBrains Mono:h14"
 if vim.g.neovide then
-	vim.o.guifont = "JetBrains Mono:h14"
 	vim.g.neovide_scale_factor = 1.0
 	vim.g.neovide_transparency = 0.9
-elseif vim.g.fvim_loaded then
-	vim.o.guifont = "JetBrains Mono:h14"
-elseif vim.g.nvui then
-	vim.o.guifont = "JetBrains Mono:h14"
-else
-	-- For other GUI clients
-	vim.o.guifont = "JetBrains Mono:h14"
 end
-
--- vim.api.nvim_set_hl(0, "LineNr", { fg = "yellow" })

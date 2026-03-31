@@ -19,20 +19,6 @@ function M.highlight_on_yank(opts)
 	})
 end
 
-function M.setup_catppuccin_cursor()
-	create_autocmd("ColorScheme", {
-		desc = "setup catppuccin cursor colors",
-		pattern = "catppuccin*",
-		callback = function()
-			local colors = require("catppuccin.palettes").get_palette()
-			vim.api.nvim_set_hl(0, "Cursor", { bg = colors.mauve })
-			vim.api.nvim_set_hl(0, "CursorInsert", { bg = colors.blue })
-			vim.api.nvim_set_hl(0, "CursorReplace", { bg = colors.red })
-			vim.api.nvim_set_hl(0, "Visual", { bg = colors.rosewater, fg = colors.base })
-		end,
-	})
-end
-
 function M.setup_markdown_wrapping()
 	create_autocmd("FileType", {
 		desc = "setup text wrapping for markdown files",

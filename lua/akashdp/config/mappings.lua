@@ -9,9 +9,8 @@ map("n", "<C-a>",          "gg<S-v>G",        o("Select all"))
 map("n", "<C-m>",          "<C-i>",           o("Jumplist forward"))
 map("n", "+",              "<C-a>",           o("Increment number"))
 map("n", "-",              "<C-x>",           o("Decrement number"))
-map("n", "dw",             "sv_d",            o("Delete word backwards"))
+map("n", "dw",             "vbd",             o("Delete word backwards"))
 map("n", "J",              "mzJ`z",           o("Join lines (keep cursor)"))
-map("n", "yc",             '"+yy',            o("Yank line to clipboard"))
 map("n", "<leader><leader>x", "<cmd>source %<CR>", o("Source current file"))
 map("n", "<leader>x",      ":.lua<CR>",       o("Execute line as Lua"))
 
@@ -88,9 +87,6 @@ M.lsp_attach = function(ev)
     map("n", "gi",  vim.lsp.buf.implementation,   lo("Go to implementation"))
     map("n", "go",  vim.lsp.buf.type_definition,  lo("Go to type definition"))
     map("n", "gr",  vim.lsp.buf.references,       lo("Go to references"))
-    map("n", "gR",  vim.lsp.buf.references,       lo("Go to references"))
-    map("n", "gY",  vim.lsp.buf.type_definition,  lo("Go to type definition"))
-    map("n", "gM",  vim.lsp.buf.implementation,   lo("Go to implementation"))
     map("n", "gK",  vim.lsp.buf.signature_help,   lo("Signature help"))
     map("i", "<C-k>", vim.lsp.buf.signature_help, lo("Signature help"))
 
@@ -130,7 +126,6 @@ M.noice = function()
 end
 
 -- ── Visual ────────────────────────────────────────────────────────────────────
-map("v", "<leader>yc", '"+y',              o("Yank selection to clipboard"))
 map("v", "<leader>x",  ":lua<CR>",         o("Execute selection as Lua"))
 map("v", "J",          ":m '>+1<CR>gv=gv", o("Move selection down"))
 map("v", "K",          ":m '<-2<CR>gv=gv", o("Move selection up"))

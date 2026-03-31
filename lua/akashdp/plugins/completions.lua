@@ -17,22 +17,17 @@ return {
             { "williamboman/mason-lspconfig.nvim" },
         },
         config = function()
-            -- Native completion: show popup doc preview, don't auto-select
-            vim.o.completeopt = "menuone,noinsert,noselect,popup"
-
-            -- Bordered floating windows for hover and signature help
-            local float_opts = {
-                border = "rounded",
-                max_width = 80,
-                max_height = 20,
-            }
-
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_opts)
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_opts)
-
-            -- Global LSP settings for all servers
+            -- Global LSP settings: capabilities + bordered float windows
             vim.lsp.config("*", {
                 capabilities = vim.lsp.protocol.make_client_capabilities(),
+                handlers = {
+                    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+                        border = "rounded", max_width = 80, max_height = 20,
+                    }),
+                    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+                        border = "rounded", max_width = 80, max_height = 20,
+                    }),
+                },
             })
 
             -- Server-specific configurations
