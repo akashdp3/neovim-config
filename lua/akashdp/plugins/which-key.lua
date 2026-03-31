@@ -68,6 +68,7 @@ return {
 				{ "<leader>x", group = "Diagnostics", icon = "󱍼" },
 				{ "<leader>h", group = "Harpoon", icon = "󱡀" },
 				{ "<leader>a", group = "AI/Claude", icon = "󰚩" },
+				{ "<leader>n", group = "Notes/Obsidian", icon = "󰠮" },
 				{ "<leader>i", group = "Info/Inspect", icon = "" },
 				{ "<leader>l", group = "Lazy", icon = "󰒲" },
 
@@ -106,8 +107,8 @@ return {
 				{ "<leader>ca", desc = "Code action", icon = "󰌵" },
 				{ "<leader>cr", desc = "Rename symbol", icon = "󰏫" },
 				{ "<leader>cf", desc = "Format code", icon = "󰉢" },
-				{ "<leader>cs", desc = "Symbols (Trouble)", icon = "󰅪" },
-				{ "<leader>cS", desc = "LSP refs/defs (Trouble)", icon = "󰁨" },
+				{ "<leader>cs", desc = "Document symbols", icon = "󰅪" },
+				{ "<leader>cS", desc = "Workspace symbols", icon = "󰁨" },
 
 				-- AI/Claude
 				{ "<leader>ac", desc = "Toggle Claude", icon = "󰚩" },
@@ -122,15 +123,14 @@ return {
 
 				-- Diagnostics/Quickfix
 				{ "<leader>xd", desc = "Show diagnostic float", icon = "󰙨" },
-				{ "<leader>xx", desc = "Diagnostics (Trouble)", icon = "󱍼" },
-				{ "<leader>xX", desc = "Buffer diagnostics (Trouble)", icon = "󰈙" },
+				{ "<leader>xx", desc = "Diagnostics (qflist)", icon = "󱍼" },
+				{ "<leader>xX", desc = "Buffer diagnostics (loclist)", icon = "󰈙" },
 				{ "<leader>xb", desc = "Buffer diagnostics (Telescope)", icon = "󰈞" },
-				{ "<leader>xL", desc = "Location list (Trouble)", icon = "󰆤" },
-				{ "<leader>xQ", desc = "Quickfix list (Trouble)", icon = "󰁨" },
+				{ "<leader>xL", desc = "Location list", icon = "󰆤" },
+				{ "<leader>xQ", desc = "Quickfix list", icon = "󰁨" },
 				{ "<leader>xq", desc = "Quickfix (Telescope)", icon = "󰈞" },
 				{ "<leader>xl", desc = "Location list (Telescope)", icon = "󰈞" },
 				{ "<leader>xw", desc = "Workspace diagnostics", icon = "󰒋" },
-				{ "<leader>xt", desc = "TODOs (Trouble)", icon = "󰄬" },
 
 				-- Harpoon
 				{ "<leader>ha", desc = "Add file", icon = "󰐕" },
@@ -142,13 +142,27 @@ return {
 				{ "<leader>hn", desc = "Next file", icon = "󰒭" },
 				{ "<leader>hp", desc = "Previous file", icon = "󰒮" },
 
+				-- Notes/Obsidian
+				{ "<leader>nn", desc = "New note", icon = "󰎠" },
+				{ "<leader>no", desc = "Quick switch", icon = "󰈞" },
+				{ "<leader>ns", desc = "Search notes", icon = "󰊄" },
+				{ "<leader>nt", desc = "Today's journal", icon = "󰃮" },
+				{ "<leader>ny", desc = "Yesterday's journal", icon = "󰃮" },
+				{ "<leader>nm", desc = "Tomorrow's journal", icon = "󰃮" },
+				{ "<leader>nb", desc = "Backlinks", icon = "󰌹" },
+				{ "<leader>nl", desc = "Links", icon = "󰌹" },
+				{ "<leader>ni", desc = "Insert template", icon = "󰘙" },
+				{ "<leader>nf", desc = "Follow link", icon = "󰌹" },
+				{ "<leader>nr", desc = "Rename note", icon = "󰏫" },
+				{ "<leader>nT", desc = "Browse tags", icon = "󰓹" },
+
 				-- Search/Noice
 				{ "<leader>sn", group = "Noice", icon = "󰎟" },
 				{ "<leader>snl", desc = "Last message", icon = "󰋚" },
 				{ "<leader>snh", desc = "History", icon = "󰋖" },
 				{ "<leader>sna", desc = "All messages", icon = "󰍡" },
-				{ "<leader>snd", desc = "Dismiss all", icon = "󰅖" },
-				{ "<leader>snt", desc = "Noice picker", icon = "󰈞" },
+				{ "<leader>snt", desc = "Picker", icon = "�" },
+				{ "<leader>snd", desc = "Dismiss", icon = "�" },
 
 				-- Quick actions (no group)
 				{ "<leader>u", desc = "Toggle Undotree", icon = "󰕌" },
@@ -170,12 +184,12 @@ return {
 				-- Goto group
 				{ "g", group = "Goto", icon = "" },
 				{ "gd", desc = "Go to definition", icon = "󰈮" },
-				{ "gD", desc = "Glance definitions", icon = "󰍉" },
+				{ "gD", desc = "Go to declaration", icon = "�" },
 				{ "gi", desc = "Go to implementation", icon = "󰡱" },
 				{ "gr", desc = "Go to references", icon = "󰈇" },
-				{ "gR", desc = "Glance references", icon = "󰍉" },
-				{ "gY", desc = "Glance type defs", icon = "󰍉" },
-				{ "gM", desc = "Glance implementations", icon = "󰍉" },
+				{ "gR", desc = "Go to references", icon = "�" },
+				{ "gY", desc = "Go to type definition", icon = "�" },
+				{ "gM", desc = "Go to implementation", icon = "󰡱" },
 				{ "go", desc = "Go to type definition", icon = "󰊄" },
 				{ "gK", desc = "Signature help", icon = "󰏪" },
 

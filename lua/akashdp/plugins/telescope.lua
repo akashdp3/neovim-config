@@ -8,7 +8,6 @@ return {
             build = "make"
         },
         "nvim-telescope/telescope-file-browser.nvim",
-        "nvim-telescope/telescope-ui-select.nvim"
     },
     keys = {
         {
@@ -159,11 +158,9 @@ return {
     },
     config = function(_, opts)
         local telescope = require("telescope")
-        opts.extensions["ui-select"] = { require("telescope.themes").get_cursor() }
         telescope.setup(opts)
         telescope.load_extension("fzf")
         telescope.load_extension("file_browser")
-        telescope.load_extension("ui-select")
 
         -- Override file browser create action to not select the file
         local fb_actions = require("telescope._extensions.file_browser.actions")

@@ -1,94 +1,144 @@
 local M = {}
+local map = vim.keymap.set
+local s = { noremap = true, silent = true }
+local function o(desc, extra) return vim.tbl_extend("force", s, { desc = desc }, extra or {}) end
 
-local normal_mode_keymaps = {
-    ["<leader><leader>x"] = { "<cmd>source %<CR>", "Source current file" },
-    ["<leader>x"] = { ":.lua<CR>", "Source current line" },
+-- ── General ───────────────────────────────────────────────────────────────────
+map("n", "<C-c>",          "<Esc>",          o("Escape"))
+map("n", "<C-a>",          "gg<S-v>G",        o("Select all"))
+map("n", "<C-m>",          "<C-i>",           o("Jumplist forward"))
+map("n", "+",              "<C-a>",           o("Increment number"))
+map("n", "-",              "<C-x>",           o("Decrement number"))
+map("n", "dw",             "sv_d",            o("Delete word backwards"))
+map("n", "J",              "mzJ`z",           o("Join lines (keep cursor)"))
+map("n", "yc",             '"+yy',            o("Yank line to clipboard"))
+map("n", "<leader><leader>x", "<cmd>source %<CR>", o("Source current file"))
+map("n", "<leader>x",      ":.lua<CR>",       o("Execute line as Lua"))
 
-    ["<leader>ef"] = { vim.cmd.Ex, "Open Netrw File Viewer" },
+-- ── Scrolling ─────────────────────────────────────────────────────────────────
+map("n", "<C-d>", "<C-d>zz",  o("Scroll down (centered)"))
+map("n", "<C-u>", "<C-u>zz",  o("Scroll up (centered)"))
+map("n", "n",     "nzzzv",    o("Next search result (centered)"))
+map("n", "N",     "Nzzzv",    o("Prev search result (centered)"))
 
-    ["<C-c>"] = { "<Esc>", "Escape" },
+-- ── Quickfix / Location list ──────────────────────────────────────────────────
+map("n", "<C-k>",      "<cmd>cnext<CR>zz",  o("Quickfix next"))
+map("n", "<C-j>",      "<cmd>cprev<CR>zz",  o("Quickfix prev"))
+map("n", "<leader>j",  "<cmd>lnext<CR>zz",  o("Loclist next"))
+map("n", "<leader>k",  "<cmd>lprev<CR>zz",  o("Loclist prev"))
 
-    ["<C-k>"] = { "<cmd>cnext<CR>zz" },
-    ["<C-j>"] = { "<cmd>cprev<CR>zz" },
-    ["<leader>j"] = { "<cmd>lnext<CR>zz" },
-    ["<leader>k"] = { "<cmd>lprev<CR>zz" },
+-- ── Window splits ─────────────────────────────────────────────────────────────
+map("n", "ss", ":split<Return>",  o("Horizontal split"))
+map("n", "sv", ":vsplit<Return>", o("Vertical split"))
 
-    ["+"] = { "<C-a>" },
-    ["-"] = { "<C-x>" },
+-- ── Window navigation ─────────────────────────────────────────────────────────
+map("n", "<C-h>", "<C-w>h", o("Move to left window"))
+map("n", "<C-l>", "<C-w>l", o("Move to right window"))
+map("n", "sh",    "<C-w>h", o("Move to left window"))
+map("n", "sj",    "<C-w>j", o("Move to bottom window"))
+map("n", "sk",    "<C-w>k", o("Move to top window"))
+map("n", "sl",    "<C-w>l", o("Move to right window"))
 
-    ["dw"] = { "sv_d", "Delete a word backwards" },
+-- ── Window resize ─────────────────────────────────────────────────────────────
+map("n", "<C-Up>",    "<cmd>resize +2<CR>",          o("Increase window height"))
+map("n", "<C-Down>",  "<cmd>resize -2<CR>",           o("Decrease window height"))
+map("n", "<C-Left>",  "<cmd>vertical resize -2<CR>",  o("Decrease window width"))
+map("n", "<C-Right>", "<cmd>vertical resize +2<CR>",  o("Increase window width"))
+map("n", "<leader>wm", "<cmd>only<CR>",               o("Maximize window"))
+map("n", "<leader>we", "<C-w>=",                      o("Equalize window sizes"))
 
-    ["<C-a>"] = { "gg<S-v>G", "Select all in current buffer" },
+-- ── Line operations ───────────────────────────────────────────────────────────
+map("n", "<A-j>",    "<cmd>m .+1<CR>==", o("Move line down"))
+map("n", "<A-k>",    "<cmd>m .-2<CR>==", o("Move line up"))
+map("n", "<leader>o", "o<Esc>",          o("Blank line below"))
+map("n", "<leader>O", "O<Esc>",          o("Blank line above"))
 
-    ["<C-m>"] = { "<C-i>", "Jumplist" },
+-- ── File / Save / Quit ────────────────────────────────────────────────────────
+map("n", "<leader>ef", vim.cmd.Ex,           o("Open Netrw"))
+map("n", "<leader>fs", "<cmd>w<CR>",         o("Save file"))
+map("n", "<leader>q",  "<cmd>q<CR>",         o("Quit"))
+map("n", "<leader>Q",  "<cmd>qa!<CR>",       o("Force quit all"))
 
-    -- Window splits
-    ["ss"] = { ":split<Return>", "Horizontal Split" },
-    ["sv"] = { ":vsplit<Return>", "Vertical Split" },
+-- ── Undotree (native 0.12) ────────────────────────────────────────────────────
+map("n", "<leader>u", "<cmd>Undotree<CR>", o("Toggle Undotree"))
 
-    -- Window navigation (ergonomic)
-    ["<C-h>"] = { "<C-w>h", "Move to left window" },
-    ["<C-l>"] = { "<C-w>l", "Move to right window" },
-    ["sh"] = { "<C-w>h", "Move to left window" },
-    ["sj"] = { "<C-w>j", "Move to bottom window" },
-    ["sk"] = { "<C-w>k", "Move to top window" },
-    ["sl"] = { "<C-w>l", "Move to right window " },
+-- ── Diagnostics ───────────────────────────────────────────────────────────────
+map("n", "<leader>xd", vim.diagnostic.open_float, o("Show diagnostic float"))
+map("n", "[d", vim.diagnostic.goto_prev,           o("Previous diagnostic"))
+map("n", "]d", vim.diagnostic.goto_next,           o("Next diagnostic"))
+map("n", "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, o("Previous error"))
+map("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, o("Next error"))
+map("n", "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end,  o("Previous warning"))
+map("n", "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end,  o("Next warning"))
 
-    -- Window resize
-    ["<C-Up>"] = { "<cmd>resize +2<CR>", "Increase window height" },
-    ["<C-Down>"] = { "<cmd>resize -2<CR>", "Decrease window height" },
-    ["<C-Left>"] = { "<cmd>vertical resize -2<CR>", "Decrease window width" },
-    ["<C-Right>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
-    ["<leader>wm"] = { "<cmd>only<CR>", "Maximize window (close others)" },
-    ["<leader>we"] = { "<C-w>=", "Equalize window sizes" },
+map("n", "<leader>xx", function() vim.diagnostic.setqflist() vim.cmd("copen") end, o("Diagnostics (qflist)"))
+map("n", "<leader>xX", function() vim.diagnostic.setloclist() end,                 o("Buffer diagnostics (loclist)"))
+map("n", "<leader>xL", "<cmd>lopen<CR>",  o("Location list"))
+map("n", "<leader>xQ", "<cmd>copen<CR>",  o("Quickfix list"))
 
-    -- Line operations
-    ["<A-j>"] = { "<cmd>m .+1<CR>==", "Move line down" },
-    ["<A-k>"] = { "<cmd>m .-2<CR>==", "Move line up" },
-    ["<leader>o"] = { "o<Esc>", "Insert blank line below" },
-    ["<leader>O"] = { "O<Esc>", "Insert blank line above" },
+-- ── LSP (buffer-local, registered on LspAttach) ───────────────────────────────
+M.lsp_attach = function(ev)
+    local opts_buf = { buffer = ev.buf }
+    local function lo(desc) return vim.tbl_extend("force", s, opts_buf, { desc = desc }) end
 
-    -- Quick save/quit
-    ["<leader>fs"] = { "<cmd>w<CR>", "Save file" },
-    ["<leader>q"] = { "<cmd>q<CR>", "Quit" },
-    ["<leader>Q"] = { "<cmd>qa!<CR>", "Force quit all" },
+    -- Navigation
+    map("n", "K",   vim.lsp.buf.hover,           lo("Hover documentation"))
+    map("n", "gd",  vim.lsp.buf.definition,       lo("Go to definition"))
+    map("n", "gD",  vim.lsp.buf.declaration,      lo("Go to declaration"))
+    map("n", "gi",  vim.lsp.buf.implementation,   lo("Go to implementation"))
+    map("n", "go",  vim.lsp.buf.type_definition,  lo("Go to type definition"))
+    map("n", "gr",  vim.lsp.buf.references,       lo("Go to references"))
+    map("n", "gR",  vim.lsp.buf.references,       lo("Go to references"))
+    map("n", "gY",  vim.lsp.buf.type_definition,  lo("Go to type definition"))
+    map("n", "gM",  vim.lsp.buf.implementation,   lo("Go to implementation"))
+    map("n", "gK",  vim.lsp.buf.signature_help,   lo("Signature help"))
+    map("i", "<C-k>", vim.lsp.buf.signature_help, lo("Signature help"))
 
-    -- Better scrolling (centered)
-    ["<C-d>"] = { "<C-d>zz", "Scroll down (centered)" },
-    ["<C-u>"] = { "<C-u>zz", "Scroll up (centered)" },
-    ["n"] = { "nzzzv", "Next search result (centered)" },
-    ["N"] = { "Nzzzv", "Prev search result (centered)" },
+    -- Actions
+    map("n",        "<F2>", vim.lsp.buf.rename,       lo("Rename symbol"))
+    map({ "n", "x" }, "<F3>", function() vim.lsp.buf.format({ async = true }) end, lo("Format code"))
+    map({ "n", "v" }, "<F4>", vim.lsp.buf.code_action, lo("Code action"))
 
-    -- Join lines without moving cursor
-    ["J"] = { "mzJ`z", "Join lines (keep cursor)" },
+    map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, lo("Code action"))
+    map("n",          "<leader>cr", vim.lsp.buf.rename,      lo("Rename symbol"))
+    map({ "n", "x" }, "<leader>cf", function() vim.lsp.buf.format({ async = true }) end, lo("Format code"))
 
-    ["<CR>"] = { "<Plug>(neorg.esupports.hop.hop-link)", "Open link in Neorg" },
+    -- LSP lists
+    map("n", "<leader>cs", vim.lsp.buf.document_symbol,  lo("Document symbols"))
+    map("n", "<leader>cS", vim.lsp.buf.workspace_symbol, lo("Workspace symbols"))
 
-    ["yc"] = { '"+yy', "Yank current line to clipboard", "Current line copied to clipboard" },
-}
+    -- Inlay hints toggle
+    map("n", "<leader>ih", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+    end, lo("Toggle inlay hints"))
+end
 
-local visual_mode_keymaps = {
-    ["<leader>yc"] = { '"+y', "Yank selected text to clipboard", "Selected text copied to clipboard" },
+-- ── Noice ─────────────────────────────────────────────────────────────────────
+M.noice = function()
+    map("c", "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, o("Noice redirect cmdline"))
+    map("n", "<leader>snl", function() require("noice").cmd("last") end,    o("Noice last message"))
+    map("n", "<leader>snh", function() require("noice").cmd("history") end, o("Noice history"))
+    map("n", "<leader>sna", function() require("noice").cmd("all") end,     o("Noice all messages"))
+    map("n", "<leader>snd", function() require("noice").cmd("dismiss") end, o("Noice dismiss all"))
+    map("n", "<leader>snt", function() require("noice").cmd("pick") end,    o("Noice picker"))
+    map({ "i", "n", "s" }, "<C-f>", function()
+        if not require("noice.lsp").scroll(4) then return "<C-f>" end
+    end, { silent = true, expr = true, desc = "Scroll forward (noice)" })
+    map({ "i", "n", "s" }, "<C-b>", function()
+        if not require("noice.lsp").scroll(-4) then return "<C-b>" end
+    end, { silent = true, expr = true, desc = "Scroll backward (noice)" })
+end
 
-    ["<leader>x"] = { ":lua<CR>", "Executes the visually selected text as Lua code" },
+-- ── Visual ────────────────────────────────────────────────────────────────────
+map("v", "<leader>yc", '"+y',              o("Yank selection to clipboard"))
+map("v", "<leader>x",  ":lua<CR>",         o("Execute selection as Lua"))
+map("v", "J",          ":m '>+1<CR>gv=gv", o("Move selection down"))
+map("v", "K",          ":m '<-2<CR>gv=gv", o("Move selection up"))
 
-    ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
-    ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
-}
+-- ── Terminal ──────────────────────────────────────────────────────────────────
+map("t", "<leader>tn", "<C-\\><C-n>", o("Terminal normal mode"))
 
-local terminal_mode_keymaps = {
-    ["<leader>tn"] = { "<c-\\><c-n>", "Sends the terminal from terminal mode to normal mode" }
-}
-
-local select_mode_keymaps = {
-    ["p"] = { '"_dP', "Paste without yanking" }
-}
-
-M.general = {
-    n = normal_mode_keymaps,
-    v = visual_mode_keymaps,
-    t = terminal_mode_keymaps,
-    x = select_mode_keymaps,
-}
+-- ── Select ────────────────────────────────────────────────────────────────────
+map("x", "p", '"_dP', o("Paste without yanking"))
 
 return M

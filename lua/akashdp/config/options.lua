@@ -5,7 +5,7 @@ vim.opt.guicursor = {
 	"r-cr:block-CursorReplace/lCursor-blinkwait700-blinkoff400-blinkon250",
 }
 
-vim.opt.nu = true
+vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
@@ -30,7 +30,7 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 16
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "number"
 
 vim.opt.updatetime = 50
 
@@ -48,7 +48,7 @@ vim.opt.showmatch = true
 vim.opt.lazyredraw = false
 
 -- Better completion experience
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = "menuone,noinsert,noselect,popup"
 
 -- Confirm before closing unsaved buffers
 vim.opt.confirm = true
