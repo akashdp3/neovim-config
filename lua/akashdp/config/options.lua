@@ -27,7 +27,7 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 16
-vim.opt.signcolumn = "number"
+vim.opt.signcolumn = "yes"
 
 vim.opt.updatetime = 50
 

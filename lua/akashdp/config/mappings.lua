@@ -59,7 +59,8 @@ map("n", "<leader>q",  "<cmd>q<CR>",         o("Quit"))
 map("n", "<leader>Q",  "<cmd>qa!<CR>",       o("Force quit all"))
 
 -- ── Undotree (native 0.12) ────────────────────────────────────────────────────
-map("n", "<leader>u", "<cmd>Undotree<CR>", o("Toggle Undotree"))
+vim.cmd("packadd nvim.undotree")
+map("n", "<leader>u", require("undotree").open, o("Toggle Undotree"))
 
 -- ── Diagnostics ───────────────────────────────────────────────────────────────
 map("n", "<leader>xd", vim.diagnostic.open_float, o("Show diagnostic float"))
