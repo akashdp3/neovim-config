@@ -8,6 +8,8 @@ M.treesitter = {
 
         -- notes
         "norg",
+        "markdown",
+        "markdown_inline",
 
         -- config files
         "yaml",

@@ -19,6 +19,10 @@ local function macro_recording()
 	return "󰑋 @" .. reg
 end
 
+local function lsp_progress()
+	return vim.ui.progress_status() or ""
+end
+
 local function search_count()
 	if vim.v.hlsearch == 0 then
 		return ""
@@ -64,6 +68,7 @@ return {
 			{ search_count, color = { fg = "#7dcfff" } },
 		},
 		lualine_x = {
+			{ lsp_progress, color = { fg = "#e0af68" } },
 			{ lsp_status, color = { fg = "#7aa2f7" } },
 			"encoding",
 			{ "fileformat", symbols = { unix = "", dos = "", mac = "" } },

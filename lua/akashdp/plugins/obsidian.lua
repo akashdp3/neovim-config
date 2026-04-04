@@ -40,7 +40,7 @@ return {
             },
             new_notes_location = "current_dir",
             completion = {
-                nvim_cmp = true,
+                nvim_cmp = false,
                 min_chars = 2,
             },
             ui = {

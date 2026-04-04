@@ -12,6 +12,7 @@ map("n", "-",              "<C-x>",           o("Decrement number"))
 map("n", "dw",             "vbd",             o("Delete word backwards"))
 map("n", "J",              "mzJ`z",           o("Join lines (keep cursor)"))
 map("n", "<leader><leader>x", "<cmd>source %<CR>", o("Source current file"))
+map("n", "<leader><leader>r", "<cmd>restart<CR>", o("Restart Neovim"))
 map("n", "<leader>x",      ":.lua<CR>",       o("Execute line as Lua"))
 
 -- ── Scrolling ─────────────────────────────────────────────────────────────────
@@ -54,7 +55,7 @@ map("n", "<leader>O", "O<Esc>",          o("Blank line above"))
 
 -- ── File / Save / Quit ────────────────────────────────────────────────────────
 map("n", "<leader>ef", vim.cmd.Ex,           o("Open Netrw"))
-map("n", "<leader>fs", "<cmd>w<CR>",         o("Save file"))
+map("n", "<leader>fs", "<cmd>w ++p<CR>",      o("Save file (auto-create dirs)"))
 map("n", "<leader>q",  "<cmd>q<CR>",         o("Quit"))
 map("n", "<leader>Q",  "<cmd>qa!<CR>",       o("Force quit all"))
 
@@ -64,12 +65,12 @@ map("n", "<leader>u", require("undotree").open, o("Toggle Undotree"))
 
 -- ── Diagnostics ───────────────────────────────────────────────────────────────
 map("n", "<leader>xd", vim.diagnostic.open_float, o("Show diagnostic float"))
-map("n", "[d", vim.diagnostic.goto_prev,           o("Previous diagnostic"))
-map("n", "]d", vim.diagnostic.goto_next,           o("Next diagnostic"))
-map("n", "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, o("Previous error"))
-map("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, o("Next error"))
-map("n", "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end,  o("Previous warning"))
-map("n", "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end,  o("Next warning"))
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, o("Previous diagnostic"))
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end,  o("Next diagnostic"))
+map("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, o("Previous error"))
+map("n", "]e", function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end,  o("Next error"))
+map("n", "[w", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN }) end,  o("Previous warning"))
+map("n", "]w", function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.WARN }) end,   o("Next warning"))
 
 map("n", "<leader>xx", function() vim.diagnostic.setqflist() vim.cmd("copen") end, o("Diagnostics (qflist)"))
 map("n", "<leader>xX", function() vim.diagnostic.setloclist() end,                 o("Buffer diagnostics (loclist)"))
@@ -82,14 +83,14 @@ M.lsp_attach = function(ev)
     local function lo(desc) return vim.tbl_extend("force", s, opts_buf, { desc = desc }) end
 
     -- Navigation
-    map("n", "K",   vim.lsp.buf.hover,           lo("Hover documentation"))
+    map("n", "K",   function() vim.lsp.buf.hover({ max_width = 80, max_height = 20 }) end, lo("Hover documentation"))
     map("n", "gd",  vim.lsp.buf.definition,       lo("Go to definition"))
     map("n", "gD",  vim.lsp.buf.declaration,      lo("Go to declaration"))
     map("n", "gi",  vim.lsp.buf.implementation,   lo("Go to implementation"))
     map("n", "go",  vim.lsp.buf.type_definition,  lo("Go to type definition"))
     map("n", "gr",  vim.lsp.buf.references,       lo("Go to references"))
-    map("n", "gK",  vim.lsp.buf.signature_help,   lo("Signature help"))
-    map("i", "<C-k>", vim.lsp.buf.signature_help, lo("Signature help"))
+    map("n", "gK",  function() vim.lsp.buf.signature_help({ max_width = 80, max_height = 20 }) end, lo("Signature help"))
+    map("i", "<C-k>", function() vim.lsp.buf.signature_help({ max_width = 80, max_height = 20 }) end, lo("Signature help"))
 
     -- Actions
     map("n",        "<F2>", vim.lsp.buf.rename,       lo("Rename symbol"))

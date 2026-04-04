@@ -24,8 +24,6 @@ vim.opt.undofile = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.opt.termguicolors = true
-
 vim.opt.scrolloff = 16
 vim.opt.signcolumn = "yes"
 
@@ -49,6 +47,20 @@ vim.opt.isfname:append("@-@")
 
 -- Better completion experience
 vim.opt.completeopt = "menuone,noinsert,noselect,popup"
+vim.opt.pumborder = "rounded"
+vim.opt.pummaxwidth = 60
+
+-- Global floating window border (applies to all floats: hover, diagnostics, etc.)
+vim.opt.winborder = "rounded"
+
+-- LSP-based folding (semantic: functions, classes, imports)
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
+-- Inline char-level diff highlighting
+vim.opt.diffopt:append("inline:char")
 
 -- Confirm before closing unsaved buffers
 vim.opt.confirm = true

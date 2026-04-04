@@ -38,12 +38,11 @@ M.setup = function()
 		},
 		-- Show diagnostic messages sorted by severity
 		severity_sort = true,
-		-- Configure floating window appearance
-		float = {
-			focusable = true,
-			style = "minimal",
-			border = "rounded",
-			source = true,
+	-- Configure floating window appearance
+	float = {
+		focusable = true,
+		style = "minimal",
+		source = true,
 			header = " Diagnostics",
 			prefix = function(diagnostic)
 				local icons = {
@@ -70,15 +69,14 @@ M.setup_hover = function()
 	-- Show diagnostic automatically when holding cursor on a line with diagnostic
 	vim.api.nvim_create_autocmd("CursorHold", {
 		callback = function()
-			local opts = {
-				focusable = false,
-				close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-				border = "rounded",
-				source = "always",
+		local opts = {
+			focusable = false,
+			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+			source = true,
 				prefix = " ",
 				scope = "cursor",
 			}
-			vim.diagnostic.open_float(nil, opts)
+			vim.diagnostic.open_float(opts)
 		end,
 	})
 end
