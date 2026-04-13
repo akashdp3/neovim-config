@@ -1,2 +1,2 @@
-require("akashdp")
-require("lazy").setup("akashdp.plugins")
+require("config")
+require("plugins")
