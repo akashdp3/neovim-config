@@ -5,6 +5,10 @@ vim.opt.guicursor = {
 	"r-cr:block-CursorReplace/lCursor-blinkwait700-blinkoff400-blinkon250",
 }
 
+pcall(function()
+	require("vim._core.ui2").enable()
+end)
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 

@@ -185,6 +185,4 @@ map("t", "<leader>tn", "<C-\\><C-n>", o("Terminal normal mode"))
 -- ── Select ────────────────────────────────────────────────────────────────────
 map("x", "p", '"_dP', o("Paste without yanking"))
 
-print("Mappings loaded")
-
 return M
