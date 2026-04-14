@@ -1,11 +1,7 @@
-local M = {}
 local map = vim.keymap.set
 local s = { noremap = true, silent = true }
 local function o(desc, extra)
 	return vim.tbl_extend("force", s, { desc = desc }, extra or {})
-end
-local function completion_selected()
-	return vim.fn.complete_info({ "selected" }).selected ~= -1
 end
 
 -- ── General ───────────────────────────────────────────────────────────────────
@@ -16,7 +12,7 @@ map("n", "+", "<C-a>", o("Increment number"))
 map("n", "-", "<C-x>", o("Decrement number"))
 map("n", "dw", "vbd", o("Delete word backwards"))
 map("n", "J", "mzJ`z", o("Join lines (keep cursor)"))
-map("n", "<leader><leader>x", "<cmd>source %<CR>", o("Source current file"))
+map("n", "<leader><leader>x", "<cmd>luafile %<CR>", o("Source current file"))
 map("n", "<leader><leader>r", "<cmd>restart<CR>", o("Restart Neovim"))
 map("n", "<leader>x", ":.lua<CR>", o("Execute line as Lua"))
 
@@ -98,128 +94,13 @@ end, o("Buffer diagnostics (loclist)"))
 map("n", "<leader>xL", "<cmd>lopen<CR>", o("Location list"))
 map("n", "<leader>xQ", "<cmd>copen<CR>", o("Quickfix list"))
 
--- ── LSP (buffer-local, registered on LspAttach) ───────────────────────────────
-M.lsp_attach = function(ev)
-	local opts_buf = { buffer = ev.buf }
-	local function lo(desc)
-		return vim.tbl_extend("force", s, opts_buf, { desc = desc })
-	end
-
-	-- Navigation
-	map("n", "K", function()
-		vim.lsp.buf.hover({ max_width = 80, max_height = 20 })
-	end, lo("Hover documentation"))
-	map("n", "gd", vim.lsp.buf.definition, lo("Go to definition"))
-	map("n", "gD", vim.lsp.buf.declaration, lo("Go to declaration"))
-	map("n", "gi", vim.lsp.buf.implementation, lo("Go to implementation"))
-	map("n", "go", vim.lsp.buf.type_definition, lo("Go to type definition"))
-	map("n", "gr", vim.lsp.buf.references, lo("Go to references"))
-	map("n", "gK", function()
-		vim.lsp.buf.signature_help({ max_width = 80, max_height = 20 })
-	end, lo("Signature help"))
-	map("i", "<C-k>", function()
-		vim.lsp.buf.signature_help({ max_width = 80, max_height = 20 })
-	end, lo("Signature help"))
-
-	-- Actions
-	map("n", "<F2>", vim.lsp.buf.rename, lo("Rename symbol"))
-	map({ "n", "x" }, "<F3>", function()
-		vim.lsp.buf.format({ async = true })
-	end, lo("Format code"))
-	map({ "n", "v" }, "<F4>", vim.lsp.buf.code_action, lo("Code action"))
-
-	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, lo("Code action"))
-	map("n", "<leader>cr", vim.lsp.buf.rename, lo("Rename symbol"))
-	map({ "n", "x" }, "<leader>cf", function()
-		vim.lsp.buf.format({ async = true })
-	end, lo("Format code"))
-
-	-- LSP lists
-	map("n", "<leader>cs", vim.lsp.buf.document_symbol, lo("Document symbols"))
-	map("n", "<leader>cS", vim.lsp.buf.workspace_symbol, lo("Workspace symbols"))
-
-	-- Inlay hints toggle
-	map("n", "<leader>ih", function()
-		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
-	end, lo("Toggle inlay hints"))
-
-	-- Codelens toggle
-	map("n", "<leader>cl", function()
-		local enabled = vim.lsp.codelens.is_enabled({ bufnr = ev.buf })
-		vim.lsp.codelens.enable(not enabled, { bufnr = ev.buf })
-	end, lo("Toggle codelens"))
-end
-
--- ── Noice ─────────────────────────────────────────────────────────────────────
-M.noice = function()
-	map("c", "<S-Enter>", function()
-		require("noice").redirect(vim.fn.getcmdline())
-	end, o("Noice redirect cmdline"))
-	map("n", "<leader>snl", function()
-		require("noice").cmd("last")
-	end, o("Noice last message"))
-	map("n", "<leader>snh", function()
-		require("noice").cmd("history")
-	end, o("Noice history"))
-	map("n", "<leader>sna", function()
-		require("noice").cmd("all")
-	end, o("Noice all messages"))
-	map("n", "<leader>snd", function()
-		require("noice").cmd("dismiss")
-	end, o("Noice dismiss all"))
-	map("n", "<leader>snt", function()
-		require("noice").cmd("pick")
-	end, o("Noice picker"))
-	map({ "i", "n", "s" }, "<C-f>", function()
-		if not require("noice.lsp").scroll(4) then
-			return "<C-f>"
-		end
-	end, { silent = true, expr = true, desc = "Scroll forward (noice)" })
-	map({ "i", "n", "s" }, "<C-b>", function()
-		if not require("noice.lsp").scroll(-4) then
-			return "<C-b>"
-		end
-	end, { silent = true, expr = true, desc = "Scroll backward (noice)" })
-end
-
 -- ── Visual ────────────────────────────────────────────────────────────────────
 map("v", "<leader>x", ":lua<CR>", o("Execute selection as Lua"))
 map("v", "J", ":m '>+1<CR>gv=gv", o("Move selection down"))
 map("v", "K", ":m '<-2<CR>gv=gv", o("Move selection up"))
-
--- ── Insert completion ─────────────────────────────────────────────────────────
-map("i", "<C-Space>", function()
-	vim.lsp.completion.get()
-end, o("Trigger LSP completion"))
-map("i", "<Tab>", function()
-	if vim.fn.pumvisible() == 1 then
-		return "<C-n>"
-	end
-	return "<Tab>"
-end, o("Completion next item", { expr = true }))
-map("i", "<S-Tab>", function()
-	if vim.fn.pumvisible() == 1 then
-		return "<C-p>"
-	end
-	return "<S-Tab>"
-end, o("Completion previous item", { expr = true }))
-map("i", "<CR>", function()
-	if vim.fn.pumvisible() == 1 and completion_selected() then
-		return "<C-y>"
-	end
-	return "<CR>"
-end, o("Confirm completion", { expr = true }))
-map("i", "<C-e>", function()
-	if vim.fn.pumvisible() == 1 then
-		return "<C-e>"
-	end
-	return "<C-e>"
-end, o("Cancel completion", { expr = true }))
 
 -- ── Terminal ──────────────────────────────────────────────────────────────────
 map("t", "<leader>tn", "<C-\\><C-n>", o("Terminal normal mode"))
 
 -- ── Select ────────────────────────────────────────────────────────────────────
 map("x", "p", '"_dP', o("Paste without yanking"))
-
-return M
