@@ -44,7 +44,7 @@ local function open_file_browser()
   local path = vim.fn.expand("%:p:h")
 
   if path == "" then
-    path = vim.loop.cwd()
+    path = vim.uv.cwd()
   end
 
   extensions.file_browser.file_browser({

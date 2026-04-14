@@ -33,16 +33,6 @@ local function git_branch()
   return _branch_cache
 end
 
-local function git_diff()
-  local d = vim.b.gitsigns_status_dict
-  if not d then return "" end
-  local parts = {}
-  if (d.added or 0) > 0    then parts[#parts + 1] = "+" .. d.added end
-  if (d.changed or 0) > 0  then parts[#parts + 1] = "~" .. d.changed end
-  if (d.removed or 0) > 0  then parts[#parts + 1] = "-" .. d.removed end
-  return table.concat(parts, " ")
-end
-
 local function lsp_status()
   local clients = vim.lsp.get_clients({ bufnr = 0 })
   if #clients == 0 then return "" end
@@ -109,12 +99,10 @@ statusline.setup({
       local search = search_count()
       local lsp_prog = lsp_progress()
       local lsp = is_narrow and "" or lsp_status()
-      local diff = is_narrow and "" or git_diff()
 
       local groups = {
-        { hl = mode_hl,                   strings = { mode } },
-        { hl = "MiniStatuslineBranch",    strings = { git_branch() } },
-        { hl = "MiniStatuslineGitDiff",   strings = { diff } },
+        { hl = mode_hl,                strings = { mode } },
+        { hl = "MiniStatuslineBranch", strings = { git_branch() } },
       }
 
       vim.list_extend(groups, diagnostics_groups())
@@ -172,12 +160,6 @@ local palette = require("rose-pine.palette")
 
 vim.api.nvim_set_hl(0, "MiniStatuslineBranch", {
   fg = palette.text,
-  bg = palette.surface,
-  bold = false,
-})
-
-vim.api.nvim_set_hl(0, "MiniStatuslineGitDiff", {
-  fg = palette.foam,
   bg = palette.surface,
   bold = false,
 })

@@ -29,7 +29,6 @@ vim.lsp.config("lua_ls", {
         globals = { "vim" },
       },
       workspace = {
-        library = { vim.env.VIMRUNTIME },
         checkThirdParty = false,
       },
       telemetry = {
@@ -57,8 +56,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
     end
 
-    if client:supports_method("textDocument/codeLens") then
-      vim.lsp.codelens.enable(true, { bufnr = ev.buf })
+    if client:supports_method("textDocument/foldingRange") then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win].foldmethod = "expr"
+      vim.wo[win].foldexpr = "v:lua.vim.lsp.foldexpr()"
     end
   end,
 })

@@ -40,9 +40,6 @@ vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- Show matching brackets
-vim.opt.showmatch = true
-
 -- System clipboard
 vim.opt.clipboard = "unnamedplus"
 
@@ -50,16 +47,15 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.isfname:append("@-@")
 
 -- Better completion experience
-vim.opt.completeopt = "menuone,noselect,popup"
+vim.opt.completeopt = "menuone,popup"
 vim.opt.pumborder = "rounded"
 vim.opt.pummaxwidth = 60
 
 -- Global floating window border (applies to all floats: hover, diagnostics, etc.)
 vim.opt.winborder = "rounded"
 
--- LSP-based folding (semantic: functions, classes, imports)
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+-- Folding — LSP expr is set on LspAttach; fall back to indent
+vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 

@@ -66,7 +66,6 @@ rose_pine.setup({
 	-- NOTE: Highlight groups are extended (merged) by default. Disable this
 	-- per group via `inherit = false`
     highlight_groups = {
-        Comment = { fg = "foam" },
         StatusLine = { fg = "love", bg = "love", blend = 15 },
         VertSplit = { fg = "muted", bg = "muted" },
         Visual = { fg = "base", bg = "text", inherit = false },
@@ -84,17 +83,7 @@ rose_pine.setup({
         TelescopeTitle = { fg = "base", bg = "iris", bold = true },
     },
 
-    before_highlight = function(group, highlight, palette)
-        -- Disable all undercurls
-        -- if highlight.undercurl then
-        --     highlight.undercurl = false
-        -- end
-        --
-        -- Change palette colour
-        if highlight.fg == palette.pine then
-            highlight.fg = palette.foam
-        end
-    end,
+    before_highlight = function(group, highlight, palette) end,
 })
 
 -- vim.cmd("colorscheme rose-pine")

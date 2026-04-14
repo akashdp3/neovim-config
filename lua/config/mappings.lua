@@ -4,6 +4,9 @@ local s = { noremap = true, silent = true }
 local function o(desc, extra)
 	return vim.tbl_extend("force", s, { desc = desc }, extra or {})
 end
+local function completion_selected()
+	return vim.fn.complete_info({ "selected" }).selected ~= -1
+end
 
 -- ── General ───────────────────────────────────────────────────────────────────
 map("n", "<C-c>", "<Esc>", o("Escape"))
@@ -56,7 +59,6 @@ map("n", "<leader>o", "o<Esc>", o("Blank line below"))
 map("n", "<leader>O", "O<Esc>", o("Blank line above"))
 
 -- ── File / Save / Quit ────────────────────────────────────────────────────────
-map("n", "<leader>ef", vim.cmd.Ex, o("Open Netrw"))
 map("n", "<leader>fs", "<cmd>w ++p<CR>", o("Save file (auto-create dirs)"))
 map("n", "<leader>q", "<cmd>q<CR>", o("Quit"))
 map("n", "<leader>Q", "<cmd>qa!<CR>", o("Force quit all"))
@@ -140,6 +142,12 @@ M.lsp_attach = function(ev)
 	map("n", "<leader>ih", function()
 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
 	end, lo("Toggle inlay hints"))
+
+	-- Codelens toggle
+	map("n", "<leader>cl", function()
+		local enabled = vim.lsp.codelens.is_enabled({ bufnr = ev.buf })
+		vim.lsp.codelens.enable(not enabled, { bufnr = ev.buf })
+	end, lo("Toggle codelens"))
 end
 
 -- ── Noice ─────────────────────────────────────────────────────────────────────
@@ -178,6 +186,35 @@ end
 map("v", "<leader>x", ":lua<CR>", o("Execute selection as Lua"))
 map("v", "J", ":m '>+1<CR>gv=gv", o("Move selection down"))
 map("v", "K", ":m '<-2<CR>gv=gv", o("Move selection up"))
+
+-- ── Insert completion ─────────────────────────────────────────────────────────
+map("i", "<C-Space>", function()
+	vim.lsp.completion.get()
+end, o("Trigger LSP completion"))
+map("i", "<Tab>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-n>"
+	end
+	return "<Tab>"
+end, o("Completion next item", { expr = true }))
+map("i", "<S-Tab>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-p>"
+	end
+	return "<S-Tab>"
+end, o("Completion previous item", { expr = true }))
+map("i", "<CR>", function()
+	if vim.fn.pumvisible() == 1 and completion_selected() then
+		return "<C-y>"
+	end
+	return "<CR>"
+end, o("Confirm completion", { expr = true }))
+map("i", "<C-e>", function()
+	if vim.fn.pumvisible() == 1 then
+		return "<C-e>"
+	end
+	return "<C-e>"
+end, o("Cancel completion", { expr = true }))
 
 -- ── Terminal ──────────────────────────────────────────────────────────────────
 map("t", "<leader>tn", "<C-\\><C-n>", o("Terminal normal mode"))

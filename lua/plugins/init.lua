@@ -11,7 +11,6 @@ vim.pack.add({
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   { src = gh("williamboman/mason.nvim") },
   { src = gh("williamboman/mason-lspconfig.nvim") },
-  { src = gh("neovim/nvim-lspconfig") },
   -- { src = gh("rachartier/tiny-inline-diagnostic.nvim") },
 })
 
