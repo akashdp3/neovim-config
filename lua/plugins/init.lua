@@ -12,7 +12,7 @@ vim.pack.add({
   { src = gh("williamboman/mason.nvim") },
   { src = gh("williamboman/mason-lspconfig.nvim") },
   { src = gh("neovim/nvim-lspconfig") },
-  { src = gh("rachartier/tiny-inline-diagnostic.nvim") },
+  -- { src = gh("rachartier/tiny-inline-diagnostic.nvim") },
 })
 
 require("plugins.colorscheme")
@@ -20,4 +20,4 @@ require("plugins.telescope")
 require("plugins.mini")
 require("plugins.treesitter")
 require("plugins.lsp")
-require("plugins.diagnostics-ui")
+-- require("plugins.diagnostics-ui")

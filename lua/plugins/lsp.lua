@@ -29,7 +29,7 @@ vim.lsp.config("lua_ls", {
         globals = { "vim" },
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = { vim.env.VIMRUNTIME },
         checkThirdParty = false,
       },
       telemetry = {
@@ -57,10 +57,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
     end
 
-    if client:supports_method("textDocument/linkedEditingRange") then
-      vim.lsp.buf.linked_editing_range()
-    end
-
     if client:supports_method("textDocument/codeLens") then
       vim.lsp.codelens.enable(true, { bufnr = ev.buf })
     end
@@ -82,10 +78,10 @@ vim.diagnostic.config({
   virtual_lines = false,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN] = " ",
-      [vim.diagnostic.severity.HINT] = " ",
-      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.ERROR] = "\u{f05e} ",
+      [vim.diagnostic.severity.WARN] = "\u{f071} ",
+      [vim.diagnostic.severity.HINT] = "\u{f05a} ",
+      [vim.diagnostic.severity.INFO] = "\u{f05a} ",
     },
     numhl = {
       [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
@@ -106,10 +102,10 @@ vim.diagnostic.config({
     header = " Diagnostics",
     prefix = function(diagnostic)
       local icons = {
-        [vim.diagnostic.severity.ERROR] = " ",
-        [vim.diagnostic.severity.WARN] = " ",
-        [vim.diagnostic.severity.HINT] = " ",
-        [vim.diagnostic.severity.INFO] = " ",
+        [vim.diagnostic.severity.ERROR] = "\u{f05e} ",
+        [vim.diagnostic.severity.WARN] = "\u{f071} ",
+        [vim.diagnostic.severity.HINT] = "\u{f05a} ",
+        [vim.diagnostic.severity.INFO] = "\u{f05a} ",
       }
       return icons[diagnostic.severity] or "● ", "DiagnosticSign" .. ({ "Error", "Warn", "Hint", "Info" })[diagnostic.severity]
     end,

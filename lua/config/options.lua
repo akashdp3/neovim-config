@@ -50,7 +50,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.isfname:append("@-@")
 
 -- Better completion experience
-vim.opt.completeopt = "menuone,noinsert,noselect,popup"
+vim.opt.completeopt = "menuone,noselect,popup"
 vim.opt.pumborder = "rounded"
 vim.opt.pummaxwidth = 60
 
@@ -70,7 +70,7 @@ vim.opt.diffopt:append("inline:char")
 vim.opt.confirm = true
 
 -- Font configuration (GUI clients: neovide, nvim-qt, etc.)
-vim.o.guifont = "JetBrains Mono:h14"
+vim.o.guifont = "JetBrainsMono Nerd Font Mono:h14"
 if vim.g.neovide then
 	vim.g.neovide_scale_factor = 1.0
 	vim.g.neovide_transparency = 0.9
