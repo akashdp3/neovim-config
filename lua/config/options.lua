@@ -5,6 +5,10 @@ vim.opt.guicursor = {
 	"r-cr:block-CursorReplace/lCursor-blinkwait700-blinkoff400-blinkon250",
 }
 
+pcall(function()
+	require("vim._core.ui2").enable()
+end)
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -36,9 +40,6 @@ vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- Show matching brackets
-vim.opt.showmatch = true
-
 -- System clipboard
 vim.opt.clipboard = "unnamedplus"
 
@@ -46,16 +47,15 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.isfname:append("@-@")
 
 -- Better completion experience
-vim.opt.completeopt = "menuone,noinsert,noselect,popup"
+vim.opt.completeopt = "menuone,popup"
 vim.opt.pumborder = "rounded"
 vim.opt.pummaxwidth = 60
 
 -- Global floating window border (applies to all floats: hover, diagnostics, etc.)
 vim.opt.winborder = "rounded"
 
--- LSP-based folding (semantic: functions, classes, imports)
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+-- Folding — LSP expr is set on LspAttach; fall back to indent
+vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 
@@ -66,7 +66,7 @@ vim.opt.diffopt:append("inline:char")
 vim.opt.confirm = true
 
 -- Font configuration (GUI clients: neovide, nvim-qt, etc.)
-vim.o.guifont = "JetBrains Mono:h14"
+vim.o.guifont = "JetBrainsMono Nerd Font Mono:h14"
 if vim.g.neovide then
 	vim.g.neovide_scale_factor = 1.0
 	vim.g.neovide_transparency = 0.9
