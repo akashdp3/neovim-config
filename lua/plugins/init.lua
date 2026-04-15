@@ -10,6 +10,7 @@ vim.pack.add({
 	{ src = gh("folke/which-key.nvim") },
 	{ src = gh("nvim-telescope/telescope.nvim") },
 	{ src = gh("nvim-telescope/telescope-file-browser.nvim") },
+	{ src = gh("epwalsh/obsidian.nvim") },
 	{ src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
 	{ src = gh("williamboman/mason.nvim") },
 	{ src = gh("williamboman/mason-lspconfig.nvim") },
@@ -23,6 +24,7 @@ require("plugins.colorscheme")
 require("plugins.gitsigns")
 require("plugins.which-key")
 require("plugins.telescope")
+require("plugins.obsidian")
 require("plugins.mini")
 require("plugins.treesitter")
 require("plugins.lsp")
