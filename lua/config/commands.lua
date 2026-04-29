@@ -58,3 +58,12 @@ vim.api.nvim_create_user_command("LspRestartAll", function()
 	vim.lsp.stop_client(vim.lsp.get_clients())
 	vim.cmd("edit")
 end, { desc = "Restart all LSP clients for current session" })
+
+vim.api.nvim_create_user_command("DapClearBreakpoints", function()
+	require("nvim-dap").clear_breakpoints()
+	vim.notify("All breakpoints cleared", vim.log.levels.INFO)
+end, { desc = "Clear all DAP breakpoints" })
+
+vim.api.nvim_create_user_command("DapUIToggle", function()
+	require("dapui").toggle()
+end, { desc = "Toggle DAP UI" })

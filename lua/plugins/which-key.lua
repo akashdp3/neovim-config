@@ -14,6 +14,7 @@ which_key.setup({
 
 which_key.add({
 	{ "<leader>c", group = "Code" },
+	{ "<leader>d", group = "Debug" },
 	{ "<leader>f", group = "Find" },
 	{ "<leader>h", group = "Git Hunks" },
 	{ "<leader>s", group = "Search" },

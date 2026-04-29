@@ -4,6 +4,59 @@ local function o(desc, extra)
 	return vim.tbl_extend("force", s, { desc = desc }, extra or {})
 end
 
+--- Floating :term lazygit (no plugin). q / Esc close from Terminal-Normal (<C-\\><C-n>).
+local function open_lazygit_float()
+	local buf = vim.api.nvim_create_buf(false, true)
+	local vw = vim.o.columns
+	local vv = vim.o.lines - vim.o.cmdheight - (vim.o.laststatus ~= 0 and 1 or 0)
+	local width = math.max(40, math.min(math.floor(vw * 0.92), vw - 2))
+	local height = math.max(15, math.min(math.floor(vv * 0.92), vv - 2))
+	local row = math.max(0, math.floor((vv - height) / 2))
+	local col = math.max(0, math.floor((vw - width) / 2))
+
+	local closed = false
+	local win
+
+	local function shutdown()
+		if closed then
+			return
+		end
+		closed = true
+		if win and vim.api.nvim_win_is_valid(win) then
+			pcall(vim.api.nvim_win_close, win, true)
+		end
+		if buf and vim.api.nvim_buf_is_valid(buf) then
+			pcall(vim.api.nvim_buf_delete, buf, { force = true })
+		end
+	end
+
+	win = vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		style = "minimal",
+		border = "rounded",
+		title = " lazygit ",
+		title_pos = "center",
+		zindex = 50,
+	})
+
+	-- Terminal-Normal uses Normal-mode maps; buffer-local so only this float.
+	vim.keymap.set("n", "q", shutdown, { buffer = buf, silent = true })
+	vim.keymap.set("n", "<Esc>", shutdown, { buffer = buf, silent = true })
+
+	vim.api.nvim_set_current_buf(buf)
+	vim.fn.termopen("lazygit", {
+		cwd = vim.fn.getcwd(0),
+		on_exit = function()
+			vim.schedule(shutdown)
+		end,
+	})
+	vim.cmd.startinsert()
+end
+
 -- ── General ───────────────────────────────────────────────────────────────────
 map("n", "<C-c>", "<Esc>", o("Escape"))
 map("n", "<C-a>", "gg<S-v>G", o("Select all"))
@@ -100,6 +153,7 @@ map("v", "J", ":m '>+1<CR>gv=gv", o("Move selection down"))
 map("v", "K", ":m '<-2<CR>gv=gv", o("Move selection up"))
 
 -- ── Terminal ──────────────────────────────────────────────────────────────────
+map("n", "<leader>lg", open_lazygit_float, o("Lazygit"))
 map("t", "<leader>tn", "<C-\\><C-n>", o("Terminal normal mode"))
 
 -- ── Select ────────────────────────────────────────────────────────────────────

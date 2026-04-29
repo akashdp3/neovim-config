@@ -18,6 +18,10 @@ vim.pack.add({
 	{ src = gh("Saghen/blink.cmp"), version = "v1.10.2" },
 	{ src = gh("stevearc/conform.nvim") },
 	{ src = gh("rachartier/tiny-inline-diagnostic.nvim") },
+	{ src = gh("nvim-neotest/nvim-nio") },
+	{ src = gh("mfussenegger/nvim-dap") },
+	{ src = gh("rcarriga/nvim-dap-ui") },
+	{ src = gh("jay-babu/mason-nvim-dap.nvim") },
 })
 
 require("plugins.colorscheme")
@@ -30,3 +34,4 @@ require("plugins.treesitter")
 require("plugins.lsp")
 require("plugins.blink")
 require("plugins.conform")
+require("plugins.dap")
