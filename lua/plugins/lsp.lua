@@ -4,6 +4,33 @@ local s = { noremap = true, silent = true }
 local ok_blink, blink = pcall(require, "blink.cmp")
 local capabilities = ok_blink and blink.get_lsp_capabilities() or nil
 
+local function server_capabilities()
+	return capabilities and vim.deepcopy(capabilities) or nil
+end
+
+local mdx_capabilities = server_capabilities()
+if mdx_capabilities then
+	mdx_capabilities.workspace = mdx_capabilities.workspace or {}
+	mdx_capabilities.workspace.didChangeWatchedFiles = mdx_capabilities.workspace.didChangeWatchedFiles or {}
+	mdx_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+end
+
+local function typescript_server_path(root_dir)
+	local node_modules = vim.fs.find("node_modules", { path = root_dir, upward = true })[1]
+	if node_modules then
+		local tsdk = vim.fs.joinpath(node_modules, "typescript", "lib")
+		if vim.uv.fs_stat(vim.fs.joinpath(tsdk, "typescript.js")) then
+			return tsdk
+		end
+	end
+
+	local mason_tsdk = vim.fn.stdpath("data")
+		.. "/mason/packages/typescript-language-server/node_modules/typescript/lib"
+	if vim.uv.fs_stat(vim.fs.joinpath(mason_tsdk, "typescript.js")) then
+		return mason_tsdk
+	end
+end
+
 local servers = {
 	lua_ls = {
 		capabilities = capabilities,
@@ -29,6 +56,20 @@ local servers = {
 	cssls = { capabilities = capabilities },
 	html = { capabilities = capabilities },
 	ts_ls = { capabilities = capabilities },
+	mdx_analyzer = {
+		capabilities = mdx_capabilities,
+		init_options = {
+			typescript = {},
+		},
+		before_init = function(_, config)
+			config.init_options = config.init_options or {}
+			config.init_options.typescript = config.init_options.typescript or {}
+
+			if not config.init_options.typescript.tsdk or config.init_options.typescript.tsdk == "" then
+				config.init_options.typescript.tsdk = typescript_server_path(config.root_dir)
+			end
+		end,
+	},
 	astro = { capabilities = capabilities },
 	rust_analyzer = { capabilities = capabilities },
 	gopls = { capabilities = capabilities },

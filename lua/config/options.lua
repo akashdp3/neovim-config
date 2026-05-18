@@ -16,7 +16,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -71,3 +71,9 @@ if vim.g.neovide then
 	vim.g.neovide_scale_factor = 1.0
 	vim.g.neovide_transparency = 0.9
 end
+
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})

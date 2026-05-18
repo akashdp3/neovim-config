@@ -12,6 +12,7 @@ require("conform").setup({
 		scss = { "prettierd", "prettier" },
 		astro = { "prettierd", "prettier" },
 		markdown = { "prettierd", "prettier" },
+		mdx = { "prettierd", "prettier" },
 		go = { "gofmt" },
 		rust = { "rustfmt" },
 	},

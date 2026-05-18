@@ -27,6 +27,7 @@ local parsers = {
 }
 
 treesitter.setup({})
+vim.treesitter.language.register("markdown", "mdx")
 treesitter.install(parsers)
 
 vim.api.nvim_create_autocmd("FileType", {
