@@ -13,6 +13,7 @@ which_key.setup({
 })
 
 which_key.add({
+	{ "<leader>b", group = "Buffer" },
 	{ "<leader>c", group = "Code" },
 	{ "<leader>d", group = "Debug" },
 	{ "<leader>f", group = "Find" },

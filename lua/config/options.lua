@@ -43,6 +43,7 @@ vim.opt.cursorline = true
 vim.opt.cmdheight = 0
 vim.opt.showmode = false
 vim.opt.laststatus = 3
+vim.opt.showtabline = 2
 
 -- Better split behavior
 vim.opt.splitbelow = true

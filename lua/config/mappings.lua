@@ -125,6 +125,21 @@ map("n", "<leader>O", "O<Esc>", o("Blank line above"))
 map("n", "<leader>fs", "<cmd>w ++p<CR>", o("Save file (auto-create dirs)"))
 map("n", "<leader>q", "<cmd>q<CR>", o("Quit"))
 map("n", "<leader>Q", "<cmd>qa!<CR>", o("Force quit all"))
+map("n", "<S-l>", "<cmd>bnext<CR>", o("Next buffer"))
+map("n", "<S-h>", "<cmd>bprevious<CR>", o("Previous buffer"))
+map("n", "]b", "<cmd>bnext<CR>", o("Next buffer"))
+map("n", "[b", "<cmd>bprevious<CR>", o("Previous buffer"))
+map("n", "<leader>bb", "<cmd>Telescope buffers<CR>", o("Pick buffer"))
+map("n", "<leader>bd", "<cmd>bdelete<CR>", o("Delete buffer"))
+map("n", "<leader>bD", "<cmd>bdelete!<CR>", o("Force delete buffer"))
+map("n", "<leader>bo", function()
+	local current = vim.api.nvim_get_current_buf()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if buf ~= current and vim.bo[buf].buflisted then
+			vim.api.nvim_buf_delete(buf, {})
+		end
+	end
+end, o("Delete other buffers"))
 map("n", "<leader>ss", "<cmd>SessionSave<CR>", o("Save session"))
 map("n", "<leader>sl", ":SessionLoad ", o("Load session"))
 

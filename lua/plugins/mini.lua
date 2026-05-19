@@ -30,10 +30,45 @@ require("mini.notify").setup({
 require("mini.pairs").setup()
 require("mini.tabline").setup({
 	show_icons = true,
+	tabpage_section = "right",
+	format = function(buf_id, label)
+		local name = vim.api.nvim_buf_get_name(buf_id)
+		local is_current = buf_id == vim.api.nvim_get_current_buf()
+		local formatted = MiniTabline.default_format(buf_id, label)
+		local prefix = is_current and "▎" or ""
+		local modified = vim.bo[buf_id].modified and " " or ""
+		local readonly = (vim.bo[buf_id].readonly or not vim.bo[buf_id].modifiable) and " " or ""
+		local unnamed = name == "" and "[No Name]" or ""
+
+		return prefix .. formatted .. unnamed .. modified .. readonly .. " "
+	end,
 })
 require("mini.sessions").setup({
 	directory = vim.fn.stdpath("state") .. "/sessions",
 	file = "Session.vim",
+})
+
+local function apply_tabline_highlights()
+	local ok_palette, palette = pcall(require("catppuccin.palettes").get_palette, require("config.theme").flavour)
+	if not ok_palette then
+		return
+	end
+
+	vim.api.nvim_set_hl(0, "MiniTablineCurrent", { fg = palette.base, bg = palette.mauve, bold = true })
+	vim.api.nvim_set_hl(0, "MiniTablineVisible", { fg = palette.text, bg = palette.surface1 })
+	vim.api.nvim_set_hl(0, "MiniTablineHidden", { fg = palette.subtext0, bg = palette.surface0 })
+	vim.api.nvim_set_hl(0, "MiniTablineModifiedCurrent", { fg = palette.base, bg = palette.peach, bold = true })
+	vim.api.nvim_set_hl(0, "MiniTablineModifiedVisible", { fg = palette.peach, bg = palette.surface1, bold = true })
+	vim.api.nvim_set_hl(0, "MiniTablineModifiedHidden", { fg = palette.yellow, bg = palette.surface0 })
+	vim.api.nvim_set_hl(0, "MiniTablineFill", { fg = palette.overlay0, bg = palette.base })
+	vim.api.nvim_set_hl(0, "MiniTablineTabpagesection", { fg = palette.base, bg = palette.blue, bold = true })
+	vim.api.nvim_set_hl(0, "MiniTablineTrunc", { fg = palette.lavender, bg = palette.base, bold = true })
+end
+
+apply_tabline_highlights()
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = vim.api.nvim_create_augroup("UserMiniTablineColors", { clear = true }),
+	callback = apply_tabline_highlights,
 })
 
 require("mini.surround").setup({
