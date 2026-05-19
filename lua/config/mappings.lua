@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local tmux = require("config.tmux")
 local s = { noremap = true, silent = true }
 local function o(desc, extra)
 	return vim.tbl_extend("force", s, { desc = desc }, extra or {})
@@ -68,6 +69,9 @@ map("n", "J", "mzJ`z", o("Join lines (keep cursor)"))
 map("n", "<leader><leader>x", "<cmd>luafile %<CR>", o("Source current file"))
 map("n", "<leader><leader>r", "<cmd>restart<CR>", o("Restart Neovim"))
 map("n", "<leader>x", ":.lua<CR>", o("Execute line as Lua"))
+map("n", "<leader>un", "<cmd>NotifyHistory<CR>", o("Notification history"))
+map("n", "<leader>uh", "<cmd>ConfigHealth<CR>", o("Config health"))
+map("n", "<leader>ut", "<cmd>ThemeInfo<CR>", o("Theme info"))
 
 -- ── Scrolling ─────────────────────────────────────────────────────────────────
 map("n", "<C-d>", "<C-d>zz", o("Scroll down (centered)"))
@@ -76,8 +80,8 @@ map("n", "n", "nzzzv", o("Next search result (centered)"))
 map("n", "N", "Nzzzv", o("Prev search result (centered)"))
 
 -- ── Quickfix / Location list ──────────────────────────────────────────────────
-map("n", "<C-k>", "<cmd>cnext<CR>zz", o("Quickfix next"))
-map("n", "<C-j>", "<cmd>cprev<CR>zz", o("Quickfix prev"))
+map("n", "]q", "<cmd>cnext<CR>zz", o("Quickfix next"))
+map("n", "[q", "<cmd>cprev<CR>zz", o("Quickfix prev"))
 map("n", "<leader>j", "<cmd>lnext<CR>zz", o("Loclist next"))
 map("n", "<leader>k", "<cmd>lprev<CR>zz", o("Loclist prev"))
 
@@ -86,8 +90,18 @@ map("n", "ss", ":split<Return>", o("Horizontal split"))
 map("n", "sv", ":vsplit<Return>", o("Vertical split"))
 
 -- ── Window navigation ─────────────────────────────────────────────────────────
-map("n", "<C-h>", "<C-w>h", o("Move to left window"))
-map("n", "<C-l>", "<C-w>l", o("Move to right window"))
+map("n", "<C-h>", function()
+	tmux.navigate("h")
+end, o("Move left (Neovim/tmux)"))
+map("n", "<C-j>", function()
+	tmux.navigate("j")
+end, o("Move down (Neovim/tmux)"))
+map("n", "<C-k>", function()
+	tmux.navigate("k")
+end, o("Move up (Neovim/tmux)"))
+map("n", "<C-l>", function()
+	tmux.navigate("l")
+end, o("Move right (Neovim/tmux)"))
 map("n", "sh", "<C-w>h", o("Move to left window"))
 map("n", "sj", "<C-w>j", o("Move to bottom window"))
 map("n", "sk", "<C-w>k", o("Move to top window"))
@@ -111,6 +125,8 @@ map("n", "<leader>O", "O<Esc>", o("Blank line above"))
 map("n", "<leader>fs", "<cmd>w ++p<CR>", o("Save file (auto-create dirs)"))
 map("n", "<leader>q", "<cmd>q<CR>", o("Quit"))
 map("n", "<leader>Q", "<cmd>qa!<CR>", o("Force quit all"))
+map("n", "<leader>ss", "<cmd>SessionSave<CR>", o("Save session"))
+map("n", "<leader>sl", ":SessionLoad ", o("Load session"))
 
 -- ── Undotree (native 0.12) ────────────────────────────────────────────────────
 vim.cmd("packadd nvim.undotree")
@@ -146,6 +162,8 @@ map("n", "<leader>xX", function()
 end, o("Buffer diagnostics (loclist)"))
 map("n", "<leader>xL", "<cmd>lopen<CR>", o("Location list"))
 map("n", "<leader>xQ", "<cmd>copen<CR>", o("Quickfix list"))
+map("n", "<leader>xl", "<cmd>Lint<CR>", o("Lint buffer"))
+map("n", "<leader>tl", "<cmd>LintToggle<CR>", o("Toggle linting"))
 
 -- ── Visual ────────────────────────────────────────────────────────────────────
 map("v", "<leader>x", ":lua<CR>", o("Execute selection as Lua"))
@@ -155,6 +173,10 @@ map("v", "K", ":m '<-2<CR>gv=gv", o("Move selection up"))
 -- ── Terminal ──────────────────────────────────────────────────────────────────
 map("n", "<leader>lg", open_lazygit_float, o("Lazygit"))
 map("t", "<leader>tn", "<C-\\><C-n>", o("Terminal normal mode"))
+map("t", "<C-h>", [[<C-\><C-n><cmd>lua require("config.tmux").navigate("h")<CR>]], o("Move left (Neovim/tmux)"))
+map("t", "<C-j>", [[<C-\><C-n><cmd>lua require("config.tmux").navigate("j")<CR>]], o("Move down (Neovim/tmux)"))
+map("t", "<C-k>", [[<C-\><C-n><cmd>lua require("config.tmux").navigate("k")<CR>]], o("Move up (Neovim/tmux)"))
+map("t", "<C-l>", [[<C-\><C-n><cmd>lua require("config.tmux").navigate("l")<CR>]], o("Move right (Neovim/tmux)"))
 
 -- ── Select ────────────────────────────────────────────────────────────────────
 map("x", "p", '"_dP', o("Paste without yanking"))

@@ -16,18 +16,37 @@ if mdx_capabilities then
 end
 
 local function typescript_server_path(root_dir)
+	root_dir = root_dir or vim.uv.cwd()
+
 	local node_modules = vim.fs.find("node_modules", { path = root_dir, upward = true })[1]
 	if node_modules then
 		local tsdk = vim.fs.joinpath(node_modules, "typescript", "lib")
-		if vim.uv.fs_stat(vim.fs.joinpath(tsdk, "typescript.js")) then
+		if vim.uv.fs_stat(vim.fs.joinpath(tsdk, "typescript.js"))
+			or vim.uv.fs_stat(vim.fs.joinpath(tsdk, "tsserverlibrary.js"))
+		then
 			return tsdk
 		end
 	end
 
-	local mason_tsdk = vim.fn.stdpath("data")
-		.. "/mason/packages/typescript-language-server/node_modules/typescript/lib"
-	if vim.uv.fs_stat(vim.fs.joinpath(mason_tsdk, "typescript.js")) then
-		return mason_tsdk
+	local mason_tsdks = {
+		vim.fn.stdpath("data") .. "/mason/packages/typescript-language-server/node_modules/typescript/lib",
+		vim.fn.stdpath("data") .. "/mason/packages/astro-language-server/node_modules/typescript/lib",
+	}
+	for _, tsdk in ipairs(mason_tsdks) do
+		if vim.uv.fs_stat(vim.fs.joinpath(tsdk, "typescript.js"))
+			or vim.uv.fs_stat(vim.fs.joinpath(tsdk, "tsserverlibrary.js"))
+		then
+			return tsdk
+		end
+	end
+end
+
+local function add_typescript_tsdk(_, config)
+	config.init_options = config.init_options or {}
+	config.init_options.typescript = config.init_options.typescript or {}
+
+	if not config.init_options.typescript.tsdk or config.init_options.typescript.tsdk == "" then
+		config.init_options.typescript.tsdk = typescript_server_path(config.root_dir)
 	end
 end
 
@@ -55,22 +74,21 @@ local servers = {
 	jsonls = { capabilities = capabilities },
 	cssls = { capabilities = capabilities },
 	html = { capabilities = capabilities },
-	ts_ls = { capabilities = capabilities },
+	vtsls = { capabilities = capabilities },
 	mdx_analyzer = {
 		capabilities = mdx_capabilities,
 		init_options = {
 			typescript = {},
 		},
-		before_init = function(_, config)
-			config.init_options = config.init_options or {}
-			config.init_options.typescript = config.init_options.typescript or {}
-
-			if not config.init_options.typescript.tsdk or config.init_options.typescript.tsdk == "" then
-				config.init_options.typescript.tsdk = typescript_server_path(config.root_dir)
-			end
-		end,
+		before_init = add_typescript_tsdk,
 	},
-	astro = { capabilities = capabilities },
+	astro = {
+		capabilities = capabilities,
+		init_options = {
+			typescript = {},
+		},
+		before_init = add_typescript_tsdk,
+	},
 	rust_analyzer = { capabilities = capabilities },
 	gopls = { capabilities = capabilities },
 }

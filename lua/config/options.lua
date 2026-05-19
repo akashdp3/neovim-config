@@ -9,6 +9,7 @@ pcall(function()
 	require("vim._core.ui2").enable()
 end)
 
+vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -17,6 +18,8 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakindent = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -35,6 +38,11 @@ vim.opt.updatetime = 50
 
 -- Cursorline for better visibility
 vim.opt.cursorline = true
+
+-- Keep the command line quiet until it has something useful to show.
+vim.opt.cmdheight = 0
+vim.opt.showmode = false
+vim.opt.laststatus = 3
 
 -- Better split behavior
 vim.opt.splitbelow = true
@@ -64,6 +72,27 @@ vim.opt.diffopt:append("inline:char")
 
 -- Confirm before closing unsaved buffers
 vim.opt.confirm = true
+
+-- Allow trusted project-local .nvim.lua/.nvimrc config.
+vim.opt.exrc = true
+
+vim.opt.list = true
+vim.opt.listchars = {
+	tab = "  ",
+	trail = "·",
+	extends = "›",
+	precedes = "‹",
+	nbsp = "␣",
+}
+
+vim.opt.fillchars = {
+	fold = " ",
+	foldopen = "",
+	foldclose = "",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
+}
 
 -- Font configuration (GUI clients: neovide, nvim-qt, etc.)
 vim.o.guifont = "JetBrainsMono Nerd Font Mono:h14"

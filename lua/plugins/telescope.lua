@@ -7,6 +7,13 @@ end
 telescope.setup({
 	defaults = {
 		border = true,
+		borderchars = {
+			prompt = { "─", "│", "─", "│", "╭", "╮", "┤", "├" },
+			results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+			preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+		},
+		dynamic_preview_title = true,
+		path_display = { "filename_first" },
 		sorting_strategy = "ascending",
 		layout_config = {
 			horizontal = {
@@ -24,6 +31,9 @@ telescope.setup({
 		results_title = false,
 		prompt_title = false,
 		preview_title = false,
+		selection_caret = "  ",
+		entry_prefix = "  ",
+		multi_icon = "󰄬 ",
 	},
 	extensions = {
 		file_browser = {
@@ -63,7 +73,10 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fd", open_file_browser, { desc = "File browser" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
+vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Recent files" })
+vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor" })
+vim.keymap.set("n", "<leader>fR", builtin.resume, { desc = "Resume picker" })
 vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "References" })
-vim.keymap.set("n", "<leader>fS", builtin.lsp_document_symbols, { desc = "Document symbols" })
+vim.keymap.set("n", "<leader>fO", builtin.lsp_document_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "<leader>fS", builtin.lsp_workspace_symbols, { desc = "Workspace symbols" })
 vim.keymap.set("n", "<leader>fx", builtin.diagnostics, { desc = "Diagnostics" })

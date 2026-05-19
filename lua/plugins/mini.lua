@@ -1,13 +1,48 @@
 require("mini.ai").setup()
 require("mini.comment").setup()
+require("mini.cursorword").setup()
+require("mini.hipatterns").setup({
+	highlighters = {
+		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+		hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+		todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+		note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+		hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+	},
+})
 require("mini.icons").setup()
+require("mini.indentscope").setup({
+	symbol = "│",
+	options = {
+		border = "top",
+		try_as_border = true,
+	},
+})
+require("mini.notify").setup({
+	window = {
+		config = {
+			border = "rounded",
+			title = " Notice ",
+			title_pos = "center",
+		},
+	},
+})
 require("mini.pairs").setup()
+require("mini.tabline").setup({
+	show_icons = true,
+})
+require("mini.sessions").setup({
+	directory = vim.fn.stdpath("state") .. "/sessions",
+	file = "Session.vim",
+})
 
 require("mini.surround").setup({
 	mappings = {
 		highlight = "sH",
 	},
 })
+
+vim.notify = require("mini.notify").make_notify()
 
 local statusline = require("mini.statusline")
 local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
@@ -171,22 +206,3 @@ vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged", "User" }, {
 	callback = update_branch_cache,
 })
 
-local palette = require("rose-pine.palette")
-
-vim.api.nvim_set_hl(0, "MiniStatuslineBranch", {
-	fg = palette.text,
-	bg = palette.surface,
-	bold = false,
-})
-
-vim.api.nvim_set_hl(0, "MiniStatuslineLspSpinner", {
-	fg = palette.love,
-	bg = palette.overlay,
-	bold = true,
-})
-
-vim.api.nvim_set_hl(0, "MiniStatuslineLspName", {
-	fg = palette.love,
-	bg = palette.overlay,
-	bold = false,
-})
